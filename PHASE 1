@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="so" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giftuhub IT Academy - Video Production Dashboard</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- FontAwesome for Icons (No SVG/Raster) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F8FAFC; /* Warm/Cool Neutral mix */
+        }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #CBD5E1; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94A3B8; 
+        }
+
+        /* Chart Container Specifics */
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px; /* Max width constraint */
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+
+        /* Slide Preview Aspect Ratio 16:9 */
+        .slide-preview {
+            aspect-ratio: 16/9;
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 2rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .nav-item.active {
+            background-color: #3B82F6; /* Blue-500 */
+            color: white;
+        }
+    </style>
+
+    <!-- Chosen Palette: Warm Neutral Background (#F8FAFC) with Professional Blue (#3B82F6) and Slate (#1E293B) accents. This creates a trustworthy, educational tone suitable for an IT Academy. -->
+
+    <!-- Application Structure Plan: 
+         1. Dashboard Home: High-level metrics showing the structure of the course (Lessons, Scenes, Topic Distribution).
+         2. Lesson Explorer: The core interactive area. Users select a lesson, then a specific scene card.
+         3. Dynamic Preview: Clicking a scene updates a "Visual Preview" pane, showing the text layout and icon as described in the report. This helps the creator visualize the final video.
+         4. Tips & Resources: A separate tab for the production advice (HeyGen, etc.).
+         Reasoning: This structure moves beyond a flat list, allowing the creator to focus on one "Scene" at a time while maintaining context of the whole lesson. -->
+
+    <!-- Visualization & Content Choices:
+         1. Content Distribution Chart (Doughnut): Shows the balance of scenes across lessons. Goal: Inform/Overview. Interaction: Tooltip.
+         2. Topic Complexity Bar Chart: Compares the number of key visual elements per lesson. Goal: Compare. Interaction: Tooltip.
+         3. Interactive Scene List: Clickable cards for each scene. Goal: Organize/Navigation.
+         4. Slide Previewer: DOM manipulation to render the 'Visual' text and 'Icon' dynamically. Goal: Inform/Simulate.
+         5. Icons: FontAwesome used instead of images/SVG to represent the visual suggestions (e.g., Globe for Internet).
+         CONFIRMATION: NO SVG graphics used (only FontAwesome font icons). NO Mermaid JS used. -->
+
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+</head>
+<body class="text-slate-800">
+
+    <!-- App Container -->
+    <div id="app" class="flex flex-col min-h-screen">
+
+        <!-- Navigation Bar -->
+        <header class="bg-white shadow-sm sticky top-0 z-50">
+            <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center text-white font-bold text-xl">
+                        G
+                    </div>
+                    <div>
+                        <h1 class="font-bold text-xl tracking-tight text-slate-800">Giftuhub IT Academy</h1>
+                        <p class="text-xs text-slate-500 font-medium">Video Production Dashboard</p>
+                    </div>
+                </div>
+                <nav class="hidden md:flex gap-2">
+                    <button onclick="switchView('dashboard')" id="nav-dashboard" class="nav-item active px-4 py-2 rounded-md text-sm font-medium transition-colors">Dashboard</button>
+                    <button onclick="switchView('lesson1')" id="nav-lesson1" class="nav-item px-4 py-2 rounded-md text-sm font-medium hover:bg-slate-100 transition-colors">Lesson 1</button>
+                    <button onclick="switchView('lesson2')" id="nav-lesson2" class="nav-item px-4 py-2 rounded-md text-sm font-medium hover:bg-slate-100 transition-colors">Lesson 2</button>
+                    <button onclick="switchView('lesson3')" id="nav-lesson3" class="nav-item px-4 py-2 rounded-md text-sm font-medium hover:bg-slate-100 transition-colors">Lesson 3</button>
+                    <button onclick="switchView('tips')" id="nav-tips" class="nav-item px-4 py-2 rounded-md text-sm font-medium hover:bg-slate-100 transition-colors">Talooyin (Tips)</button>
+                </nav>
+                <!-- Mobile Menu Button (Simple implementation) -->
+                <button class="md:hidden text-slate-600 focus:outline-none" onclick="toggleMobileNav()">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+            <!-- Mobile Nav Dropdown -->
+            <div id="mobile-nav" class="hidden md:hidden bg-slate-50 border-t border-slate-200">
+                <div class="flex flex-col p-2 space-y-1">
+                    <button onclick="switchView('dashboard')" class="px-4 py-3 text-left rounded-md text-sm font-medium hover:bg-slate-200">Dashboard</button>
+                    <button onclick="switchView('lesson1')" class="px-4 py-3 text-left rounded-md text-sm font-medium hover:bg-slate-200">Lesson 1: Hardware</button>
+                    <button onclick="switchView('lesson2')" class="px-4 py-3 text-left rounded-md text-sm font-medium hover:bg-slate-200">Lesson 2: Internet</button>
+                    <button onclick="switchView('lesson3')" class="px-4 py-3 text-left rounded-md text-sm font-medium hover:bg-slate-200">Lesson 3: Office</button>
+                    <button onclick="switchView('tips')" class="px-4 py-3 text-left rounded-md text-sm font-medium hover:bg-slate-200">Talooyin</button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content Area -->
+        <main class="flex-grow container mx-auto px-4 py-8">
+            
+            <!-- VIEW: DASHBOARD -->
+            <section id="view-dashboard" class="fade-in">
+                <div class="mb-8">
+                    <h2 class="text-2xl font-bold text-slate-800 mb-2">Guudmar (Overview)</h2>
+                    <p class="text-slate-600 max-w-3xl">
+                        Qaybtan waxaad ka helaysaa aragti guud oo ku saabsan qaab-dhismeedka casharrada Giftuhub IT Academy (Phase 1).
+                        Jaantusyadu waxay muujinayaan sida mawduucyada iyo muuqaalladu u kala qaybsan yihiin.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+                    <!-- Metric Card 1 -->
+                    <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+                        <div class="flex justify-between items-center mb-4">
+                            <h3 class="font-semibold text-slate-700">Qaybaha Casharrada (Scene Distribution)</h3>
+                            <span class="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded-full">Chart 1</span>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="contentChart"></canvas>
+                        </div>
+                        <p class="text-xs text-slate-400 mt-4 text-center">Tirada muuqaallada (scenes) cashar walba.</p>
+                    </div>
+
+                    <!-- Metric Card 2 -->
+                    <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+                        <div class="flex justify-between items-center mb-4">
+                            <h3 class="font-semibold text-slate-700">Mawduucyada Muhiimka ah</h3>
+                            <span class="text-xs bg-emerald-100 text-emerald-700 px-2 py-1 rounded-full">Chart 2</span>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="topicChart"></canvas>
+                        </div>
+                         <p class="text-xs text-slate-400 mt-4 text-center">Isbarbardhigga mawduucyada ugu waaweyn cashar kasta.</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div onclick="switchView('lesson1')" class="bg-gradient-to-br from-blue-500 to-blue-600 p-6 rounded-xl text-white cursor-pointer hover:shadow-lg transition-shadow transform hover:-translate-y-1">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <h4 class="text-lg font-bold">Lesson 1</h4>
+                                <p class="text-blue-100 text-sm mt-1">Hardware & Software</p>
+                            </div>
+                            <i class="fas fa-desktop text-2xl opacity-50"></i>
+                        </div>
+                        <div class="mt-6 flex items-center text-sm font-medium bg-white/20 w-fit px-3 py-1 rounded-full backdrop-blur-sm">
+                            <span>View Scenes</span>
+                            <i class="fas fa-arrow-right ml-2 text-xs"></i>
+                        </div>
+                    </div>
+
+                    <div onclick="switchView('lesson2')" class="bg-gradient-to-br from-indigo-500 to-indigo-600 p-6 rounded-xl text-white cursor-pointer hover:shadow-lg transition-shadow transform hover:-translate-y-1">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <h4 class="text-lg font-bold">Lesson 2</h4>
+                                <p class="text-indigo-100 text-sm mt-1">Internet & Email</p>
+                            </div>
+                            <i class="fas fa-globe text-2xl opacity-50"></i>
+                        </div>
+                        <div class="mt-6 flex items-center text-sm font-medium bg-white/20 w-fit px-3 py-1 rounded-full backdrop-blur-sm">
+                            <span>View Scenes</span>
+                            <i class="fas fa-arrow-right ml-2 text-xs"></i>
+                        </div>
+                    </div>
+
+                    <div onclick="switchView('lesson3')" class="bg-gradient-to-br from-orange-500 to-orange-600 p-6 rounded-xl text-white cursor-pointer hover:shadow-lg transition-shadow transform hover:-translate-y-1">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <h4 class="text-lg font-bold">Lesson 3</h4>
+                                <p class="text-orange-100 text-sm mt-1">MS Office Basics</p>
+                            </div>
+                            <i class="fas fa-file-powerpoint text-2xl opacity-50"></i>
+                        </div>
+                        <div class="mt-6 flex items-center text-sm font-medium bg-white/20 w-fit px-3 py-1 rounded-full backdrop-blur-sm">
+                            <span>View Scenes</span>
+                            <i class="fas fa-arrow-right ml-2 text-xs"></i>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- VIEW: LESSON DETAIL (Template used for 1, 2, 3) -->
+            <section id="view-lesson" class="hidden fade-in">
+                <div class="flex flex-col lg:flex-row gap-8">
+                    
+                    <!-- Left Column: Scene List -->
+                    <div class="w-full lg:w-1/3">
+                        <button onclick="switchView('dashboard')" class="mb-4 text-sm text-slate-500 hover:text-blue-600 flex items-center">
+                            <i class="fas fa-arrow-left mr-2"></i> Back to Dashboard
+                        </button>
+                        <h2 id="lesson-title" class="text-2xl font-bold text-slate-800 mb-2">Lesson Title</h2>
+                        <p class="text-slate-600 text-sm mb-6">Xulo muuqaalka (scene) hoose si aad u aragto qoraalka shaashadda iyo talooyinka sawirka.</p>
+                        
+                        <div id="scene-list" class="space-y-3">
+                            <!-- JS will populate cards here -->
+                        </div>
+                    </div>
+
+                    <!-- Right Column: Visual Preview -->
+                    <div class="w-full lg:w-2/3 sticky top-24 self-start">
+                        <div class="bg-white p-6 rounded-xl shadow-lg border border-slate-200">
+                            <div class="flex justify-between items-center mb-4 pb-4 border-b border-slate-100">
+                                <h3 class="font-bold text-slate-700 flex items-center">
+                                    <i class="fas fa-eye text-blue-500 mr-2"></i> Slide Preview
+                                </h3>
+                                <span class="text-xs text-slate-400 bg-slate-100 px-2 py-1 rounded">16:9 Aspect Ratio</span>
+                            </div>
+
+                            <!-- The Mock Slide -->
+                            <div id="slide-preview-box" class="slide-preview mb-6 relative overflow-hidden group">
+                                <!-- Background Elements -->
+                                <div class="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-bl-full -mr-8 -mt-8"></div>
+                                <div class="absolute bottom-0 left-0 w-24 h-24 bg-white/5 rounded-tr-full -ml-8 -mb-8"></div>
+                                
+                                <!-- Content -->
+                                <div class="z-10 w-full px-8">
+                                    <div id="preview-icon" class="text-5xl mb-4 text-blue-300 animate-pulse">
+                                        <!-- Icon goes here -->
+                                        <i class="fas fa-play-circle"></i>
+                                    </div>
+                                    <h2 id="preview-text-main" class="text-2xl md:text-3xl font-bold mb-4 leading-tight">
+                                        Select a Scene
+                                    </h2>
+                                    <div id="preview-text-sub" class="text-lg text-slate-300 font-light">
+                                        Click on the left to preview content
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Meta Data -->
+                            <div class="grid grid-cols-2 gap-4">
+                                <div class="bg-slate-50 p-4 rounded-lg">
+                                    <span class="text-xs font-semibold text-slate-400 uppercase">Visual Suggestion</span>
+                                    <p id="preview-suggestion" class="text-slate-700 text-sm mt-1 font-medium">-</p>
+                                </div>
+                                <div class="bg-slate-50 p-4 rounded-lg">
+                                    <span class="text-xs font-semibold text-slate-400 uppercase">Icon Type</span>
+                                    <p id="preview-icon-name" class="text-slate-700 text-sm mt-1 font-medium">-</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- VIEW: TIPS -->
+            <section id="view-tips" class="hidden fade-in max-w-4xl mx-auto">
+                 <div class="mb-8 text-center">
+                    <h2 class="text-2xl font-bold text-slate-800 mb-2">Talooyin ku saabsan HeyGen (Production Tips)</h2>
+                    <p class="text-slate-600">Qodobadan hoose waxay kaa caawinayaan inaad si kharash-yaraan ah ku soo saarto muuqaallada.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Tip 1 -->
+                    <div class="bg-white p-6 rounded-xl border-l-4 border-blue-500 shadow-sm hover:shadow-md transition-shadow">
+                        <div class="flex items-start">
+                            <div class="bg-blue-100 p-3 rounded-full mr-4 text-blue-600">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-slate-800 text-lg mb-2">Multiple Accounts</h3>
+                                <p class="text-slate-600 text-sm leading-relaxed">
+                                    HeyGen waxay bixisaa 1 credit oo bilaash ah markaad account cusub furato. Waxaad isticmaali kartaa dhowr email kala duwan si aad casharadan Phase 1 u dhammeyso lacag la'aan.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tip 2 -->
+                    <div class="bg-white p-6 rounded-xl border-l-4 border-purple-500 shadow-sm hover:shadow-md transition-shadow">
+                        <div class="flex items-start">
+                            <div class="bg-purple-100 p-3 rounded-full mr-4 text-purple-600">
+                                <i class="fas fa-paint-brush"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-slate-800 text-lg mb-2">Canva + HeyGen</h3>
+                                <p class="text-slate-600 text-sm leading-relaxed">
+                                    Haddii aad leedahay Canva, raadi "HeyGen" oo ku dhex jira Apps-ka Canva. Tani waxay mararka qaarkood bixisaa fursado tijaabo ah oo dheeraad ah.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tip 3 -->
+                    <div class="bg-white p-6 rounded-xl border-l-4 border-emerald-500 shadow-sm hover:shadow-md transition-shadow">
+                        <div class="flex items-start">
+                            <div class="bg-emerald-100 p-3 rounded-full mr-4 text-emerald-600">
+                                <i class="fas fa-robot"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-slate-800 text-lg mb-2">D-ID ama Leonardo AI</h3>
+                                <p class="text-slate-600 text-sm leading-relaxed">
+                                    Isbarbardhig ku samee aaladaha kale sida D-ID; mararka qaarkood waxay leeyihiin "Free Trial" ka duwan HeyGen oo aad ka faa'iidaysan karto.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tip 4 -->
+                    <div class="bg-white p-6 rounded-xl border-l-4 border-orange-500 shadow-sm hover:shadow-md transition-shadow">
+                        <div class="flex items-start">
+                            <div class="bg-orange-100 p-3 rounded-full mr-4 text-orange-600">
+                                <i class="fas fa-video"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-slate-800 text-lg mb-2">Hosting (YouTube/Vimeo)</h3>
+                                <p class="text-slate-600 text-sm leading-relaxed">
+                                    Markaad muuqaalka soo dejiso, ku upload garee <strong>YouTube (Unlisted)</strong> ama <strong>Vimeo</strong>, ka dibna Link-ga ku dheji Giftuhub si uusan websaydhkaaga culays u dareemin.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+        
+        <footer class="bg-slate-800 text-slate-400 py-6 mt-auto">
+            <div class="container mx-auto px-4 text-center text-sm">
+                <p>&copy; 2024 Giftuhub IT Academy Video Guide.</p>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // --- DATA STORAGE ---
+        // Storing the report data in a structured object
+        const lessonsData = {
+            lesson1: {
+                title: "Lesson 1: Hardware & Software",
+                color: "blue",
+                scenes: [
+                    {
+                        id: "l1-s1",
+                        title: "Intro",
+                        visual_main: "Giftuhub IT Academy<br><span class='text-lg font-normal opacity-80'>Lesson 1: Hardware & Software</span>",
+                        visual_notes: "Giftuhub Logo",
+                        icon_class: "fas fa-laptop-code",
+                        icon_name: "Brand Logo"
+                    },
+                    {
+                        id: "l1-s2",
+                        title: "Hardware",
+                        visual_main: "COMPUTER HARDWARE<br><ul class='text-left text-lg mt-4 space-y-2 list-disc list-inside'><li>Physical parts you can touch</li><li>Keyboard, Mouse, Monitor, CPU</li></ul>",
+                        visual_notes: "[Image of Computer Parts]",
+                        icon_class: "fas fa-microchip",
+                        icon_name: "Hardware Image"
+                    },
+                    {
+                        id: "l1-s3",
+                        title: "Software",
+                        visual_main: "COMPUTER SOFTWARE<br><ul class='text-left text-lg mt-4 space-y-2 list-disc list-inside'><li>Programs & Applications</li><li>Windows, MS Word, Chrome</li></ul>",
+                        visual_notes: "[Image of Software Icons]",
+                        icon_class: "fas fa-window-restore",
+                        icon_name: "App Icons"
+                    },
+                    {
+                        id: "l1-s4",
+                        title: "Summary",
+                        visual_main: "<div class='grid grid-cols-2 gap-4 text-center'><div><div class='font-bold mb-2'>Hardware</div>Physical</div><div><div class='font-bold mb-2'>Software</div>Digital</div></div>",
+                        visual_notes: "Checkmark Icon",
+                        icon_class: "fas fa-check-circle",
+                        icon_name: "Checkmark"
+                    }
+                ]
+            },
+            lesson2: {
+                title: "Lesson 2: Internet & Email",
+                color: "indigo",
+                scenes: [
+                    {
+                        id: "l2-s1",
+                        title: "Intro",
+                        visual_main: "Giftuhub IT Academy<br><span class='text-lg font-normal opacity-80'>Lesson 2: Internet & Email</span>",
+                        visual_notes: "Internet Globe Icon",
+                        icon_class: "fas fa-globe-americas",
+                        icon_name: "Globe Icon"
+                    },
+                    {
+                        id: "l2-s2",
+                        title: "Internet",
+                        visual_main: "WHAT IS INTERNET?<br><ul class='text-left text-lg mt-4 space-y-2 list-disc list-inside'><li>Global Network</li><li>For: Study, Work, News</li></ul>",
+                        visual_notes: "[Image of World Network]",
+                        icon_class: "fas fa-network-wired",
+                        icon_name: "Network Image"
+                    },
+                    {
+                        id: "l2-s3",
+                        title: "Email",
+                        visual_main: "ELECTRONIC MAIL (EMAIL)<br><ul class='text-left text-lg mt-4 space-y-2 list-disc list-inside'><li>Official Messages</li><li>Examples: Gmail, Yahoo</li></ul>",
+                        visual_notes: "Email Icon",
+                        icon_class: "fas fa-envelope-open-text",
+                        icon_name: "Envelope"
+                    },
+                    {
+                        id: "l2-s4",
+                        title: "Summary",
+                        visual_main: "<div class='space-y-4'><div><strong>Internet</strong> = Connectivity</div><div><strong>Email</strong> = Communication</div></div>",
+                        visual_notes: "Connection Icon",
+                        icon_class: "fas fa-share-alt",
+                        icon_name: "Connection"
+                    }
+                ]
+            },
+            lesson3: {
+                title: "Lesson 3: MS Office Basics",
+                color: "orange",
+                scenes: [
+                    {
+                        id: "l3-s1",
+                        title: "Intro",
+                        visual_main: "Giftuhub IT Academy<br><span class='text-lg font-normal opacity-80'>Lesson 3: MS Office Basics</span>",
+                        visual_notes: "MS Office Logo",
+                        icon_class: "fab fa-microsoft",
+                        icon_name: "Office Logo"
+                    },
+                    {
+                        id: "l3-s2",
+                        title: "MS Word",
+                        visual_main: "MICROSOFT WORD<br><ul class='text-left text-lg mt-4 space-y-2 list-disc list-inside'><li>Document Editor</li><li>CV, Letters, Reports</li></ul>",
+                        visual_notes: "",
+                        icon_class: "fas fa-file-word",
+                        icon_name: "Word Logo"
+                    },
+                    {
+                        id: "l3-s3",
+                        title: "MS Excel",
+                        visual_main: "MICROSOFT EXCEL<br><ul class='text-left text-lg mt-4 space-y-2 list-disc list-inside'><li>Spreadsheet Program</li><li>Math, Tables, Data</li></ul>",
+                        visual_notes: "",
+                        icon_class: "fas fa-file-excel",
+                        icon_name: "Excel Logo"
+                    },
+                    {
+                        id: "l3-s4",
+                        title: "PowerPoint",
+                        visual_main: "MICROSOFT POWERPOINT<br><ul class='text-left text-lg mt-4 space-y-2 list-disc list-inside'><li>Presentation Tool</li><li>Slides & Visuals</li></ul>",
+                        visual_notes: "[Image of MS PowerPoint Logo]",
+                        icon_class: "fas fa-file-powerpoint",
+                        icon_name: "PPT Logo"
+                    },
+                    {
+                        id: "l3-s5",
+                        title: "Closing",
+                        visual_main: "PHASE 1 COMPLETE!<br><span class='text-lg mt-2 block'>Phase 2-5: Advanced Level</span><span class='text-sm italic opacity-75'>(Subscription Required)</span>",
+                        visual_notes: "Giftuhub Logo",
+                        icon_class: "fas fa-graduation-cap",
+                        icon_name: "Completion Logo"
+                    }
+                ]
+            }
+        };
+
+        // --- STATE MANAGEMENT ---
+        let currentView = 'dashboard';
+        let currentLessonKey = null;
+
+        // --- DOM ELEMENTS ---
+        const views = {
+            dashboard: document.getElementById('view-dashboard'),
+            lesson: document.getElementById('view-lesson'),
+            tips: document.getElementById('view-tips')
+        };
+
+        const navButtons = {
+            dashboard: document.getElementById('nav-dashboard'),
+            lesson1: document.getElementById('nav-lesson1'),
+            lesson2: document.getElementById('nav-lesson2'),
+            lesson3: document.getElementById('nav-lesson3'),
+            tips: document.getElementById('nav-tips')
+        };
+
+        // --- NAVIGATION LOGIC ---
+        function switchView(viewName) {
+            // Hide all views
+            Object.values(views).forEach(el => el.classList.add('hidden'));
+            
+            // Reset Nav Active States
+            Object.values(navButtons).forEach(btn => {
+                if(btn) btn.className = btn.className.replace('bg-blue-600 text-white', 'hover:bg-slate-100');
+                if(btn) btn.classList.remove('active');
+            });
+
+            // Show selected view
+            if (viewName.startsWith('lesson')) {
+                currentLessonKey = viewName;
+                renderLesson(viewName);
+                views.lesson.classList.remove('hidden');
+                
+                // Highlight Nav
+                const btn = document.getElementById(`nav-${viewName}`);
+                if(btn) btn.classList.add('active');
+
+            } else if (viewName === 'dashboard') {
+                views.dashboard.classList.remove('hidden');
+                document.getElementById('nav-dashboard').classList.add('active');
+            } else if (viewName === 'tips') {
+                views.tips.classList.remove('hidden');
+                document.getElementById('nav-tips').classList.add('active');
+            }
+
+            // Mobile nav close
+            document.getElementById('mobile-nav').classList.add('hidden');
+            window.scrollTo(0,0);
+        }
+
+        function toggleMobileNav() {
+            const nav = document.getElementById('mobile-nav');
+            nav.classList.toggle('hidden');
+        }
+
+        // --- LESSON RENDERING ---
+        function renderLesson(lessonKey) {
+            const data = lessonsData[lessonKey];
+            document.getElementById('lesson-title').innerText = data.title;
+            
+            const listContainer = document.getElementById('scene-list');
+            listContainer.innerHTML = '';
+
+            data.scenes.forEach((scene, index) => {
+                const card = document.createElement('div');
+                card.className = `p-4 rounded-lg border border-slate-200 cursor-pointer hover:border-${data.color}-500 hover:shadow-md transition-all bg-white group`;
+                card.onclick = () => updatePreview(scene, data.color);
+                
+                // Select first scene by default
+                if(index === 0) updatePreview(scene, data.color);
+
+                card.innerHTML = `
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <span class="w-8 h-8 rounded-full bg-slate-100 text-slate-500 flex items-center justify-center text-xs font-bold group-hover:bg-${data.color}-100 group-hover:text-${data.color}-600">
+                                ${index + 1}
+                            </span>
+                            <div>
+                                <h4 class="font-bold text-slate-700">${scene.title}</h4>
+                                <p class="text-xs text-slate-400 truncate w-32 md:w-48">${scene.visual_notes}</p>
+                            </div>
+                        </div>
+                        <i class="fas fa-chevron-right text-slate-300 group-hover:text-${data.color}-500"></i>
+                    </div>
+                `;
+                listContainer.appendChild(card);
+            });
+        }
+
+        // --- PREVIEW LOGIC ---
+        function updatePreview(scene, colorTheme) {
+            const previewBox = document.getElementById('slide-preview-box');
+            const icon = document.getElementById('preview-icon');
+            const textMain = document.getElementById('preview-text-main');
+            const textSub = document.getElementById('preview-text-sub'); // Not strictly in data, using as subtitle/extra
+            
+            const metaSuggestion = document.getElementById('preview-suggestion');
+            const metaIconName = document.getElementById('preview-icon-name');
+
+            // Apply Theme Gradient
+            const gradients = {
+                blue: 'linear-gradient(135deg, #1e3a8a 0%, #172554 100%)', // Lesson 1
+                indigo: 'linear-gradient(135deg, #312e81 0%, #1e1b4b 100%)', // Lesson 2
+                orange: 'linear-gradient(135deg, #7c2d12 0%, #431407 100%)' // Lesson 3
+            };
+
+            previewBox.style.background = gradients[colorTheme] || gradients.blue;
+
+            // Update Content
+            icon.innerHTML = `<i class="${scene.icon_class}"></i>`;
+            textMain.innerHTML = scene.visual_main;
+            textSub.innerHTML = ""; // Clearing simple subtext as HTML structure handles it in main now
+            
+            metaSuggestion.innerText = scene.visual_notes;
+            metaIconName.innerText = scene.icon_name;
+        }
+
+        // --- CHART INITIALIZATION ---
+        function initCharts() {
+            Chart.defaults.font.family = "'Inter', sans-serif";
+            
+            // Chart 1: Content Distribution (Doughnut)
+            const ctx1 = document.getElementById('contentChart').getContext('2d');
+            new Chart(ctx1, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Lesson 1 (Hardware)', 'Lesson 2 (Internet)', 'Lesson 3 (Office)'],
+                    datasets: [{
+                        data: [4, 4, 5], // Number of scenes per lesson
+                        backgroundColor: ['#3B82F6', '#6366F1', '#F97316'],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'bottom' }
+                    }
+                }
+            });
+
+            // Chart 2: Topic Elements (Bar) - Proxied by "Key Visuals"
+            const ctx2 = document.getElementById('topicChart').getContext('2d');
+            new Chart(ctx2, {
+                type: 'bar',
+                data: {
+                    labels: ['Hardware Parts', 'Software Apps', 'Network/Comms', 'Office Tools'],
+                    datasets: [{
+                        label: 'Key Visual Topics',
+                        data: [4, 3, 2, 3], // Approximate count of items listed in visual description
+                        backgroundColor: '#CBD5E1',
+                        hoverBackgroundColor: '#0F172A',
+                        borderRadius: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: { beginAtZero: true, ticks: { precision: 0 } },
+                        x: { grid: { display: false } }
+                    },
+                    plugins: {
+                        legend: { display: false }
+                    }
+                }
+            });
+        }
+
+        // --- INITIALIZATION ---
+        window.addEventListener('DOMContentLoaded', () => {
+            initCharts();
+            // Start at dashboard
+            switchView('dashboard');
+        });
+
+    </script>
+</body>
+</html>
