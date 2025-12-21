@@ -1,63 +1,55 @@
-# 🎓 Giftuhub IT Academy – Phase 1: Computer Basics
 
----
+function changeTab(tab) {
+    const content = document.getElementById('main-content');
+    
+    if (tab === 'course') {
+        content.innerHTML = `
+            <div class="flex flex-col md:flex-row gap-6">
+                <div class="w-full md:w-1/4 bg-white p-4 rounded-xl shadow-sm border h-fit">
+                    <h3 class="font-bold border-b pb-2 mb-3">Phase 1: Basics</h3>
+                    <ul class="space-y-2">
+                        <li><button onclick="loadLesson(1)" class="w-full text-left p-2 hover:bg-blue-50 rounded">Lesson 1: Hardware</button></li>
+                        <li><button onclick="loadLesson(2)" class="w-full text-left p-2 hover:bg-blue-50 rounded">Lesson 2: Internet</button></li>
+                        <li><button onclick="loadLesson(3)" class="w-full text-left p-2 hover:bg-blue-50 rounded">Lesson 3: MS Office</button></li>
+                    </ul>
+                </div>
 
-## Lesson 1: Hardware & Software
-[Watch AI Video](#)  
-[Submit Assignment](#)
+                <div id="lesson-display" class="w-full md:w-3/4 bg-white p-6 rounded-xl shadow-md border">
+                    <p class="text-gray-500">Fadlan dhinaca ka dooro casharka aad rabto...</p>
+                </div>
+            </div>
+        `;
+    }
+}
 
-## Lesson 2: Internet & Email
-[Watch AI Video](#)  
-[Submit Assignment](#)
+// Function-kan wuxuu soo ridaa casharka aad riixdo
+function loadLesson(num) {
+    const display = document.getElementById('lesson-display');
+    let title = "";
+    let videoSrc = "lv_0_20251219120652.mp4"; // Halkan ku beddel magaca videogaaga
+    let assignment = "";
 
-## Lesson 3: Microsoft Office Basics
-[Watch AI Video](#)  
-[Submit Assignment](#)
+    if(num === 1) {
+        title = "Lesson 1: Hardware & Software";
+        assignment = "Qor farqiga u dhexeeya Hardware iyo Software.";
+    } else if(num === 2) {
+        title = "Lesson 2: Internet & Email";
+        assignment = "Sidee loo abuuraa Gmail account ammaan ah?";
+    } else if(num === 3) {
+        title = "Lesson 3: Microsoft Office Basics";
+        assignment = "Samee CV adigoo isticmaalaya MS Word.";
+    }
 
-
-
-https://github.com/user-attachments/assets/a090ac1f-540e-4e41-b274-eedeb099d1ce
-
-
-## 🔒 Phases Coming Soon – Qaybaha Xiga (Paid)
-
-> 🎯 You’ve completed Phase 1.  
-> Socdaalka dhabta ah ee IT-ga halkan ayuu ka bilaabanayaa.
-
----
-
-### 🔒 Phase 2 – Programming Foundations *(PAID)*
-Baro sida barnaamijyada u fekeraan iyo logic-ga coding-ka.  
-Learn how programmers think and write clean code.  
-**Coming soon…**
-
----
-
-### 🔒 Phase 3 – Web Development *(PAID)*
-Dhiso websites dhab ah adigoo isticmaalaya HTML, CSS & tools casri ah.  
-Build real-world websites from scratch.  
-**Coming soon…**
-
----
-
-### 🔒 Phase 4 – Advanced Tech Skills *(PAID)*
-GitHub, APIs, workflows iyo xirfado shaqo-dhab ah.  
-Master tools used by professionals.  
-**Coming soon…**
-
----
-
-### 🔒 Phase 5 – Career & Income *(PAID)*
-Xirfadahaaga u beddel shaqo iyo dakhli online.  
-Turn your skills into a real career and income.  
-**Coming soon…**
-
----
-
-### 🔐 Access Notice
-> Phase 2 ilaa Phase 5 waxaa lagu heli doonaa **subscription / payment**.  
-> Sign up to unlock full access when available.
-
----
-
-👨‍🏫 Built & maintained by **Eng ABDIRAHMAN ABDIRIZAQ**
+    display.innerHTML = `
+        <h2 class="text-2xl font-bold mb-4 text-blue-600">${title}</h2>
+        <div class="bg-black rounded-lg overflow-hidden mb-6">
+            <video width="100%" controls class="aspect-video">
+                <source src="${videoSrc}" type="video/mp4">
+            </video>
+        </div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-500">
+            <h4 class="font-bold text-blue-800">Assignment:</h4>
+            <p class="text-gray-700">${assignment}</p>
+        </div>
+    `;
+}
