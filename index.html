@@ -3,45 +3,93 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gifthub Academy - 6 Phases</title>
+    <title>Gifthub Academy Dashboard</title>
     <style>
-        body { font-family: 'Segoe UI', sans-serif; background-color: #f4f7f6; margin: 0; padding: 20px; }
-        .header { background: #1a56db; color: white; padding: 15px; text-align: center; border-radius: 10px; margin-bottom: 20px; }
-        .phase-container { background: white; border-radius: 10px; padding: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); margin-bottom: 25px; }
-        .phase-header { background: #eef2ff; padding: 10px; border-left: 5px solid #1a56db; font-weight: bold; color: #1a56db; margin-bottom: 15px; }
-        .lesson { display: flex; align-items: center; justify-content: space-between; padding: 10px; border-bottom: 1px solid #eee; }
-        .btn-group { display: flex; gap: 10px; }
-        .btn { padding: 8px 15px; border: none; border-radius: 5px; cursor: pointer; font-size: 13px; font-weight: bold; text-decoration: none; }
-        .btn-orange { background: #ff8c00; color: white; }
-        .btn-gray { background: #ced4da; color: #495057; }
+        :root { --primary: #1a56db; --orange: #ff8c00; --bg: #f3f4f6; }
+        body { font-family: 'Segoe UI', sans-serif; background: var(--bg); margin: 0; padding: 15px; color: #333; }
+        
+        /* Header & Contact */
+        .top-nav { background: white; padding: 15px; border-radius: 12px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .social-links a { text-decoration: none; font-size: 14px; font-weight: bold; padding: 8px 12px; border-radius: 8px; margin-left: 5px; }
+        .wa { background: #25d366; color: white; }
+        .tt { background: black; color: white; }
+
+        .main-header { background: var(--primary); color: white; padding: 25px; border-radius: 15px; text-align: center; margin-bottom: 20px; }
+        
+        /* Phase Styling */
+        .phase-card { background: white; border-radius: 15px; padding: 20px; margin-bottom: 20px; border-left: 6px solid var(--primary); }
+        .phase-head { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; padding-bottom: 10px; margin-bottom: 15px; }
+        .price-tag { background: #eef2ff; color: var(--primary); padding: 5px 10px; border-radius: 20px; font-weight: bold; font-size: 14px; }
+        
+        .lesson-item { background: #f9fafb; padding: 15px; border-radius: 10px; margin-bottom: 10px; border: 1px solid #e5e7eb; }
+        .lesson-title { font-weight: bold; display: block; margin-bottom: 10px; }
+        
+        .btn-row { display: flex; gap: 8px; flex-wrap: wrap; }
+        .btn { flex: 1; padding: 10px; border: none; border-radius: 8px; font-size: 12px; font-weight: bold; cursor: pointer; text-align: center; text-decoration: none; }
+        .btn-vid { background: var(--orange); color: white; }
+        .btn-sec { background: #d1d5db; color: #374151; }
+
+        /* Certificate Section */
+        .cert-box { background: #374151; color: white; padding: 25px; border-radius: 15px; text-align: center; position: relative; overflow: hidden; }
+        .lock-icon { font-size: 30px; margin-bottom: 10px; }
+        .btn-lock { background: #9ca3af; color: white; cursor: not-allowed; width: 100%; margin-top: 15px; }
     </style>
 </head>
 <body>
 
-    <div class="header">
-        <h2>GIFTHUB IT ACADEMY - FULL COURSE (6 PHASES)</h2>
-        <p>Eng ABDIRAHMAN ABDIRIZAQ</p>
-    </div>
-
-    <div class="phase-container">
-        <div class="phase-header">PHASE 1: COMPUTER BASICS</div>
-        
-        <div class="lesson">
-            <span>Lesson 1: Hardware & Software</span>
-            <div class="btn-group">
-                <a href="#" class="btn btn-orange">▶ Watch AI Video</a>
-                <a href="#" class="btn btn-gray">Submit Assignment</a>
-            </div>
-        </div>
-
-        <div class="lesson">
-            <span>Lesson 2: Internet & Email</span>
-            <div class="btn-group">
-                <a href="#" class="btn btn-orange">▶ Watch AI Video</a>
-                <a href="#" class="btn btn-gray">Submit Assignment</a>
-            </div>
+    <div class="top-nav">
+        <span>Eng Abdirahman</span>
+        <div class="social-links">
+            <a href="https://wa.me/252613040087" class="wa">WhatsApp</a>
+            <a href="https://www.tiktok.com/@uphirahman" class="tt">TikTok</a>
         </div>
     </div>
 
-    </body>
-</html>
+    <div class="main-header">
+        <h2>GIFTHUB IT ACADEMY</h2>
+        <p>Full Course Price: $100</p>
+    </div>
+
+    <div class="phase-card">
+        <div class="phase-head">
+            <strong>PHASE 1: COMPUTER BASICS</strong>
+            <span class="price-tag">$10.00</span>
+        </div>
+        <div class="lesson-item">
+            <span class="lesson-title">Lesson 1: Hardware & Software</span>
+            <div class="btn-row">
+                <a href="#" class="btn btn-vid">▶ Watch Video</a>
+                <a href="#" class="btn btn-sec">Assignment</a>
+                <a href="#" class="btn btn-sec">Practice</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="phase-card">
+        <div class="phase-head">
+            <strong>PHASE 2: WEB DEVELOPMENT</strong>
+            <span class="price-tag">$15.00</span>
+        </div>
+        <div class="lesson-item">
+            <span class="lesson-title">Lesson 1: HTML & CSS Basics</span>
+            <div class="btn-row">
+                <a href="#" class="btn btn-vid">▶ Watch Video</a>
+                <a href="#" class="btn btn-sec">Assignment</a>
+                <a href="#" class="btn btn-sec">Practice</a>
+            </div>
+        </div>
+    </div>
+
+    <div style="text-align: center; color: #666; padding: 10px;">Phase 3, 4, 5 & 6 Coming Soon...</div>
+
+    <div class="cert-box">
+        <div class="lock-icon">🔒</div>
+        <h3>GET YOUR CERTIFICATE</h3>
+        <p>Fee: $10.00 (Locked until all phases complete)</p>
+        <button class="btn btn-lock">LOCKED</button>
+    </div>
+
+    <p style="text-align: center; font-size: 12px; margin-top: 20px;">© 2025 Gifthub Academy | Mogadishu, Somalia</p>
+
+</body>
+    </html>
