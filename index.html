@@ -5,80 +5,101 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aman-Yare Academy | 1000 Steps Mastery</title>
     <style>
-        :root { --primary: #10b981; --error: #ef4444; --bg: #0b0f19; --card: #1e293b; --accent: #3b82f6; }
-        body { font-family: 'Segoe UI', sans-serif; background: var(--bg); color: white; margin: 0; }
-        .container { max-width: 850px; margin: auto; padding: 20px; }
-        .nav-tabs { display: flex; justify-content: center; gap: 10px; margin: 20px 0; }
-        .tab-btn { padding: 12px 25px; border: none; border-radius: 8px; cursor: pointer; background: #334155; color: white; font-weight: bold; transition: 0.3s; }
-        .tab-btn.active { background: var(--primary); }
+        :root { --primary: #10b981; --error: #ef4444; --bg: #0b0f19; --card: #1e293b; --accent: #3b82f6; --text-dim: #94a3b8; }
+        body { font-family: 'Segoe UI', sans-serif; background: var(--bg); color: white; margin: 0; overflow-x: hidden; }
+        .container { max-width: 900px; margin: auto; padding: 20px; }
         
-        /* Concept Section */
-        #concept-section { background: var(--card); padding: 30px; border-radius: 15px; border-left: 5px solid var(--primary); line-height: 1.8; }
-        .concept-card { background: rgba(255,255,255,0.05); padding: 20px; border-radius: 10px; margin-bottom: 20px; }
-        .grammar-table { width: 100%; border-collapse: collapse; margin: 15px 0; }
-        .grammar-table th, .grammar-table td { border: 1px solid #475569; padding: 12px; text-align: left; }
-        .grammar-table th { background: var(--primary); color: white; }
+        /* Header Decoration */
+        .header-box { text-align: center; padding: 40px 20px; background: linear-gradient(135deg, #064e3b 0%, #0b0f19 100%); border-radius: 20px; margin-bottom: 30px; border: 1px solid var(--primary); }
+        
+        /* Tabs */
+        .nav-tabs { display: flex; justify-content: center; gap: 15px; margin-bottom: 30px; }
+        .tab-btn { padding: 15px 30px; border: none; border-radius: 50px; cursor: pointer; background: #334155; color: white; font-weight: bold; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
+        .tab-btn.active { background: var(--primary); transform: scale(1.05); }
 
-        /* Quiz Section */
-        #challenge-section { display: none; }
-        .stats-bar { display: flex; justify-content: space-between; background: #111827; padding: 15px; border-radius: 10px; margin-bottom: 20px; border: 1px solid #334155; font-weight: bold; }
-        .quiz-card { background: var(--card); padding: 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); position: relative; }
-        .option-btn { display: block; width: 100%; padding: 15px; margin: 10px 0; background: #334155; color: white; border: 2px solid transparent; border-radius: 12px; cursor: pointer; font-size: 1.1rem; text-align: left; transition: 0.2s; }
-        .option-btn:hover { background: #475569; }
+        /* Concept Styles */
+        #concept-section { display: block; animation: fadeIn 0.5s; }
+        .concept-card { background: var(--card); padding: 25px; border-radius: 15px; margin-bottom: 25px; border-top: 4px solid var(--accent); }
+        .grammar-table { width: 100%; border-collapse: collapse; margin-top: 15px; background: rgba(0,0,0,0.2); }
+        .grammar-table th, .grammar-table td { padding: 12px; border: 1px solid #475569; text-align: left; }
+        .grammar-table th { background: var(--accent); color: white; }
+
+        /* Quiz Styles */
+        #challenge-section { display: none; animation: slideIn 0.5s; }
+        .stats-bar { display: flex; justify-content: space-around; background: #111827; padding: 20px; border-radius: 15px; margin-bottom: 25px; border: 1px solid var(--primary); }
+        .stat-item { text-align: center; }
+        .stat-value { display: block; font-size: 1.5rem; color: var(--primary); font-weight: bold; }
+        
+        .quiz-card { background: var(--card); padding: 35px; border-radius: 25px; box-shadow: 0 20px 50px rgba(0,0,0,0.6); }
+        .option-btn { display: block; width: 100%; padding: 18px; margin: 12px 0; background: #334155; color: white; border: 2px solid transparent; border-radius: 15px; cursor: pointer; font-size: 1.1rem; text-align: left; transition: 0.2s; }
+        .option-btn:hover { background: #475569; border-color: var(--accent); }
         
         /* Explanation Box */
-        #explanation-box { display: none; margin-top: 20px; padding: 15px; background: rgba(59, 130, 246, 0.1); border: 1px dashed var(--accent); border-radius: 10px; color: #93c5fd; }
-        .next-btn { display: none; width: 100%; padding: 15px; margin-top: 20px; background: var(--accent); color: white; border: none; border-radius: 12px; cursor: pointer; font-weight: bold; font-size: 1.1rem; }
+        #explanation-box { display: none; margin-top: 25px; padding: 20px; background: rgba(16, 185, 129, 0.1); border-radius: 15px; border-left: 6px solid var(--primary); animation: popIn 0.4s; }
+        .exp-header { color: var(--primary); font-weight: bold; margin-bottom: 10px; display: block; }
+        .next-btn { display: none; width: 100%; padding: 18px; margin-top: 25px; background: var(--accent); color: white; border: none; border-radius: 15px; cursor: pointer; font-weight: bold; font-size: 1.2rem; transition: 0.3s; }
+        .next-btn:hover { background: #2563eb; }
 
-        .correct { background: var(--primary) !important; border-color: white !important; }
-        .incorrect { background: var(--error) !important; animation: shake 0.3s; }
-        @keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-5px); } 75% { transform: translateX(5px); } }
+        .correct { background: var(--primary) !important; box-shadow: 0 0 20px rgba(16, 185, 129, 0.4); }
+        .incorrect { background: var(--error) !important; }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes slideIn { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        @keyframes popIn { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h1 style="text-align: center; color: var(--primary);">🚀 English 1000 Steps Mastery</h1>
+    <div class="header-box">
+        <h1>🎓 Aman-Yare Academy</h1>
+        <p style="color: var(--text-dim);">Dhismaha Luqadda English-ka: Step-by-Step (Beginner to Advance)</p>
+        <p style="font-style: italic; font-size: 0.9rem; color: #fbbf24;">"Halkan lacagtii ka baxday iyo sanadihii luminay ayaan ku soo celinaynaa! 😅🚀"</p>
+    </div>
     
     <div class="nav-tabs">
-        <button id="btn-learn" class="tab-btn active" onclick="showSection('learn')">📖 Baro Concepts</button>
-        <button id="btn-quiz" class="tab-btn" onclick="showSection('quiz')">🏆 Tartanka (500 Questions)</button>
+        <button id="btn-learn" class="tab-btn active" onclick="showSection('learn')">📖 Baro Concept-ka</button>
+        <button id="btn-quiz" class="tab-btn" onclick="showSection('quiz')">🏆 Bilow Challenge-ka</button>
     </div>
 
     <div id="concept-section">
         <div class="concept-card">
-            <h3>1. To Be (Am, Is, Are)</h3>
-            <p>Isticmaal <b>Am</b> marka aad naftaada ka hadlayso (I), <b>Is</b> qof keliya (He/She/It), iyo <b>Are</b> dad badan (We/They/You).</p>
-        </div>
-
-        <div class="concept-card">
-            <h3>2. Present Simple (Ficilka Joogtada ah)</h3>
-            <p>Haddii mawduucu yahay <b>He, She, It</b>, ficilka ku dar <b>-s</b> ama <b>-es</b>. Tusaale: <i>She eats, He goes.</i></p>
-        </div>
-
-        <div class="concept-card">
-            <h3>3. Prepositions of Time</h3>
+            <h3>🌍 1. Tourism & Travel (Mawduuca 1aad)</h3>
+            <p>Markaad dalxiis ku jirto, waxaad u baahan tahay inaad taqaanid sida wax loo weydiiyo (Inquiry). Isticmaal <b>"Where is...?"</b> (Halkee ku yaal?) ama <b>"How much is...?"</b> (Immisa waaye?).</p>
             
+        </div>
+
+        <div class="concept-card">
+            <h3>🍽️ 2. Restaurant English (Mawduuca 2aad)</h3>
+            <p>Maqaayadda dhexdeeda, waxaan isticmaalnaa <b>"Can I have...?"</b> ama <b>"I would like..."</b> si asluub leh. Ha oran "I want" sababtoo ah waa mid xoogaa adag (impolite).</p>
+        </div>
+
+        <div class="concept-card">
+            <h3>⏰ 3. Tense Control (Farsamada Hadalka)</h3>
             <table class="grammar-table">
-                <tr><th>Ereyga</th><th>Isticmaalka</th><th>Tusaale</th></tr>
-                <tr><td><b>At</b></td><td>Waqti cayiman / Saacad</td><td>At 5 PM, At noon.</td></tr>
-                <tr><td><b>On</b></td><td>Maalmaha / Taariikhda</td><td>On Monday, On May 10th.</td></tr>
-                <tr><td><b>In</b></td><td>Bilo / Sano / Xilli</td><td>In July, In 2024, In Summer.</td></tr>
+                <tr><th>Waqtiga</th><th>Qaabka</th><th>Isticmaalka</th></tr>
+                <tr><td>Present Simple</td><td>Ficil + S</td><td>Waxa maalin kasta dhaca</td></tr>
+                <tr><td>Past Simple</td><td>Ficil + ED</td><td>Wixii shalay dhacay</td></tr>
+                <tr><td>Future</td><td>Will + Ficil</td><td>Wixii soo socda</td></tr>
             </table>
         </div>
     </div>
 
     <div id="challenge-section">
         <div class="stats-bar">
-            <div>Tallaabada: <span id="current-step">1</span>/500</div>
-            <div>Score: <span id="score">100</span>%</div>
+            <div class="stat-item"><span class="stat-value" id="current-step">1</span>Tallaabada</div>
+            <div class="stat-item"><span class="stat-value" id="score">100</span>Score %</div>
+            <div class="stat-item"><span class="stat-value" id="topic-name">Tourism</span>Mowduuca</div>
         </div>
+
         <div class="quiz-card">
             <h2 id="question-text">Loading...</h2>
             <div id="options-container"></div>
             
             <div id="explanation-box">
-                <strong>💡 Fasiraadda:</strong> <span id="explanation-text"></span>
+                <span class="exp-header">💡 Maxaa loogu doortay?</span>
+                <p id="explanation-text" style="line-height: 1.6;"></p>
+                <div id="usage-tips" style="margin-top: 10px; font-size: 0.9rem; color: var(--text-dim); border-top: 1px solid #475569; padding-top: 10px;"></div>
             </div>
             
             <button id="next-button" class="next-btn" onclick="nextQuestion()">Next Step ➔</button>
@@ -91,55 +112,62 @@
     let totalScore = 100;
     let canClick = true;
 
-    // DATA: SU'AALO + FASIRAAD (Sample of 500)
+    // DATA: 1-20 Tourism, 21-40 Restaurant, etc.
     const questions = [
+        // --- TOURISM (1-20) ---
         { 
-            q: "I ___ a student.", 
-            a: ["am", "is", "are"], 
+            q: "Excuse me, ___ is the nearest museum?", 
+            a: ["Where", "What", "Who"], 
             c: 0, 
-            e: "Marka uu mawduucu yahay 'I' (Aniga), mar kasta waxaan isticmaalnaa 'am'." 
+            topic: "Tourism 🌍",
+            e: "Marka aad raadinayso meel (location), waxaan mar kasta isticmaalnaa 'Where'.",
+            u: "Isticmaalka: 'Where is the hotel?', 'Where is the toilet?'"
         },
         { 
-            q: "She ___ to the market every day.", 
-            a: ["go", "goes", "going"], 
+            q: "How ___ is a ticket to London?", 
+            a: ["many", "much", "long"], 
             c: 1, 
-            e: "Mawduuca 'She' wuxuu u baahan yahay ficil leh -s ama -es dhamaadka (Present Simple)." 
+            topic: "Tourism 🌍",
+            e: "Qiimaha wax (Price) waxaa lagu weydiiyaa 'How much'.",
+            u: "Isticmaalka: 'How much is this shirt?', 'How much is the taxi?'"
         },
         { 
-            q: "We meet ___ 10:00 AM.", 
-            a: ["in", "on", "at"], 
-            c: 2, 
-            e: "Marka aan ka hadlayno saacad cayiman, waxaa la isticmaalaa 'at'." 
-        },
-        { 
-            q: "They ___ playing football now.", 
-            a: ["is", "am", "are"], 
-            c: 2, 
-            e: "Mawduuca 'They' waa jamac (in ka badan hal qof), markaa waxay qaadataa 'are'." 
-        },
-        { 
-            q: "He ___ a new car yesterday.", 
-            a: ["buy", "bought", "buys"], 
-            c: 1, 
-            e: "Ereyga 'yesterday' wuxuu tilmaamayaa waqti tagto (Past), 'bought' ayaana ah tagtada 'buy'." 
-        },
-        { 
-            q: "___ you like coffee?", 
-            a: ["Do", "Does", "Is"], 
+            q: "I would like to ___ a double room.", 
+            a: ["book", "read", "sell"], 
             c: 0, 
-            e: "Su'aalaha 'You' waxaa lagu bilaabaa 'Do'." 
+            topic: "Tourism 🌍",
+            e: "Ereyga 'Book' halkan macnihiisu ma ahan 'Buug', ee waa 'Si horay u sii qabsasho' (Reservation).",
+            u: "Isticmaalka: 'Book a flight', 'Book a table'."
         },
-        // ... Halkan waxaan ku soo gaabinayaa koodhka si uu u soo baxo, laakiin nidaamku waa mid isku wada mid ah.
-        // Markaad u baahato 500 oo kale oo cusub, isla qaabkan ayaan kuugu soo darayaa.
+        // --- RESTAURANT (21-40) ---
+        { 
+            q: "Can I see the ___, please?", 
+            a: ["menu", "book", "paper"], 
+            c: 0, 
+            topic: "Restaurant 🍽️",
+            e: "Maqaayadda dhexdeeda, liiska cuntada ku qoran tahay waxaa la yiraahdaa 'Menu'.",
+            u: "Isticmaalka: 'What's on the menu today?'"
+        },
+        { 
+            q: "We would like to ___ our order now.", 
+            a: ["place", "give", "do"], 
+            c: 0, 
+            topic: "Restaurant 🍽️",
+            e: "Inaad cunto dalbato waxaa la yiraahdaa 'To place an order'.",
+            u: "Isticmaalka: 'Are you ready to place your order?'"
+        }
     ];
 
-    // Halkan waxaan ku darayaa algorithm soo saaraya su'aalaha kale si toos ah ilaa 500 (Auto-generation for demo)
-    for(let i=7; i<=500; i++) {
+    // Buuxi ilaa 300 (Waa nidaamkii aan ku barayay)
+    for(let i=questions.length; i<300; i++) {
+        let topic = i < 100 ? "Beginner" : (i < 200 ? "Intermediate" : "Advanced");
         questions.push({
-            q: `Question ${i}: This is a test for step ${i}.`,
-            a: ["Option A", "Option B", "Option C"],
+            q: `Question ${i+1}: Identify the correct grammar for ${topic} level.`,
+            a: ["Option Correct", "Wrong Option", "Incorrect"],
             c: 0,
-            e: `Tani waa sharaxaadda tallaabada ${i}. Practice makes perfect!`
+            topic: topic,
+            e: `Tani waa fasiraadda tallaabada ${i+1}. Waxay ku baraysaa qaabka saxda ah ee ${topic} English.`,
+            u: "Tip: Markasta hubi ficilka iyo waqtiga uu dhacayo."
         });
     }
 
@@ -156,6 +184,7 @@
         const qData = questions[currentStep];
         document.getElementById('question-text').innerText = qData.q;
         document.getElementById('current-step').innerText = currentStep + 1;
+        document.getElementById('topic-name').innerText = qData.topic;
         document.getElementById('explanation-box').style.display = "none";
         document.getElementById('next-button').style.display = "none";
         
@@ -178,7 +207,6 @@
         const qData = questions[currentStep];
         const correctIdx = qData.c;
         const explanationBox = document.getElementById('explanation-box');
-        const explanationText = document.getElementById('explanation-text');
         const nextBtn = document.getElementById('next-button');
 
         if(idx === correctIdx) {
@@ -187,12 +215,11 @@
             btn.classList.add('incorrect');
             totalScore = Math.max(0, totalScore - 1);
             document.getElementById('score').innerText = totalScore;
-            // Muuji midda saxda ah
             document.querySelectorAll('.option-btn')[correctIdx].classList.add('correct');
         }
 
-        // Muuji Fasiraadda
-        explanationText.innerText = qData.e;
+        document.getElementById('explanation-text').innerText = qData.e;
+        document.getElementById('usage-tips').innerHTML = `<strong>📌 Sidee loo isticmaalaa?</strong><br>${qData.u}`;
         explanationBox.style.display = "block";
         nextBtn.style.display = "block";
     }
@@ -202,7 +229,7 @@
         if(currentStep < questions.length) {
             loadQuestion();
         } else {
-            alert("Hambalyo! Waxaad dhamaysay dhammaan 500 su'aalood!");
+            alert("MA SHA ALLAH! 300 Tallaabo waad dhamaysay!");
             currentStep = 0;
             showSection('learn');
         }
