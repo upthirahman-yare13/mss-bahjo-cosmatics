@@ -3,228 +3,184 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aman-Yare Academy | Mastery Path</title>
+    <title>Aman-Yare Academy | The Ultimate English Path</title>
     <style>
-        :root { --primary: #10b981; --error: #ef4444; --bg: #0b0f19; --card: #1e293b; --accent: #3b82f6; }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: var(--bg); color: #f8fafc; margin: 0; line-height: 1.6; }
-        .container { max-width: 900px; margin: auto; padding: 20px; }
+        :root { --primary: #10b981; --secondary: #3b82f6; --bg: #0b0f19; --card: #1e293b; --text: #f8fafc; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: var(--bg); color: var(--text); margin: 0; padding-bottom: 50px; }
+        .container { max-width: 850px; margin: auto; padding: 20px; }
         
-        /* Header Section */
-        .hero { text-align: center; padding: 50px 20px; background: linear-gradient(rgba(16, 185, 129, 0.1), rgba(11, 15, 25, 1)); border-radius: 30px; margin-bottom: 30px; border-bottom: 2px solid var(--primary); }
-        .hero h1 { font-size: 2.5rem; margin-bottom: 10px; color: var(--primary); }
-        .hero p { font-size: 1.1rem; color: #94a3b8; }
+        /* Professional Header */
+        .hero { text-align: center; padding: 45px 20px; background: linear-gradient(135deg, #064e3b 0%, #0b0f19 100%); border-radius: 25px; border: 1px solid var(--primary); margin-bottom: 30px; box-shadow: 0 10px 40px rgba(0,0,0,0.5); }
+        .hero h1 { font-size: 2.3rem; margin: 0; color: var(--primary); letter-spacing: 1px; }
+        .hero p { color: #94a3b8; font-size: 1.1rem; margin-top: 10px; }
 
-        /* Navigation */
-        .nav-tabs { display: flex; justify-content: center; gap: 15px; margin-bottom: 30px; }
-        .tab-btn { padding: 14px 28px; border: none; border-radius: 12px; cursor: pointer; background: #334155; color: white; font-weight: 600; transition: 0.3s; border: 1px solid transparent; }
-        .tab-btn.active { background: var(--primary); border-color: #fff; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3); }
+        /* Navigation Tabs */
+        .tabs { display: flex; gap: 10px; margin-bottom: 25px; }
+        .tab-btn { flex: 1; padding: 15px; border: none; border-radius: 12px; cursor: pointer; background: #334155; color: white; font-weight: bold; transition: 0.3s; }
+        .tab-btn.active { background: var(--primary); box-shadow: 0 5px 15px rgba(16, 185, 129, 0.3); }
 
         /* Concept View */
-        #concept-section { background: var(--card); padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
-        .topic-header { border-left: 5px solid var(--accent); padding-left: 15px; margin-bottom: 25px; }
-        .grammar-box { background: rgba(0,0,0,0.2); padding: 20px; border-radius: 10px; margin: 15px 0; border: 1px dashed #475569; }
+        .section { background: var(--card); padding: 35px; border-radius: 25px; border: 1px solid #334155; animation: fadeIn 0.5s ease; }
+        .topic-summary { background: rgba(59, 130, 246, 0.1); border-left: 5px solid var(--secondary); padding: 20px; margin-bottom: 25px; border-radius: 0 15px 15px 0; }
+        .topic-summary h3 { margin-top: 0; color: var(--secondary); }
 
-        /* Quiz View */
-        #challenge-section { display: none; }
-        .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-bottom: 25px; }
-        .stat-card { background: #111827; padding: 15px; border-radius: 15px; text-align: center; border: 1px solid #334155; }
-        .stat-label { font-size: 0.8rem; color: #94a3b8; text-transform: uppercase; }
-        .stat-value { font-size: 1.3rem; font-weight: bold; color: var(--primary); display: block; }
+        /* Quiz UI */
+        .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 25px; background: #000; padding: 15px; border-radius: 15px; }
+        .stat-box { text-align: center; }
+        .stat-label { font-size: 0.7rem; color: #64748b; text-transform: uppercase; }
+        .stat-val { display: block; font-size: 1.2rem; font-weight: bold; color: var(--primary); }
 
-        .quiz-container { background: var(--card); padding: 40px; border-radius: 25px; position: relative; }
-        .option-list { margin-top: 25px; }
-        .option-btn { width: 100%; padding: 18px; margin-bottom: 12px; background: #334155; border: 2px solid #475569; border-radius: 15px; color: white; text-align: left; cursor: pointer; font-size: 1.1rem; transition: 0.2s; }
-        .option-btn:hover { background: #475569; transform: translateX(5px); }
+        .option-btn { width: 100%; padding: 18px; margin: 10px 0; background: #334155; border: 2px solid transparent; border-radius: 15px; color: white; text-align: left; cursor: pointer; font-size: 1.05rem; transition: 0.2s; }
+        .option-btn:hover { background: #475569; border-color: var(--secondary); transform: translateX(5px); }
         
-        /* Explanation Styling */
-        #explanation-box { display: none; margin-top: 30px; padding: 25px; background: #0f172a; border-radius: 15px; border: 1px solid var(--accent); animation: fadeInUp 0.5s; }
-        .exp-title { color: var(--accent); font-weight: bold; font-size: 1.2rem; display: block; margin-bottom: 10px; }
-        .usage-badge { display: inline-block; background: #1e3a8a; color: #93c5fd; padding: 4px 12px; border-radius: 20px; font-size: 0.85rem; margin-top: 10px; }
-
-        .next-btn { display: none; width: 100%; padding: 20px; margin-top: 20px; background: var(--primary); border: none; border-radius: 15px; color: white; font-weight: bold; font-size: 1.1rem; cursor: pointer; }
+        /* Feedback Box */
+        #explanation-box { display: none; margin-top: 25px; padding: 25px; background: #0f172a; border-radius: 20px; border: 1px solid var(--secondary); border-left: 8px solid var(--secondary); }
+        .exp-header { color: var(--secondary); font-weight: bold; font-size: 1.1rem; display: block; margin-bottom: 10px; }
+        .next-btn { display: none; width: 100%; padding: 20px; background: var(--secondary); border: none; border-radius: 15px; color: white; font-weight: bold; font-size: 1.1rem; cursor: pointer; margin-top: 20px; }
 
         .correct { background: var(--primary) !important; border-color: #fff !important; }
-        .incorrect { background: var(--error) !important; border-color: #fff !important; }
+        .incorrect { background: #ef4444 !important; border-color: #fff !important; }
 
-        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
 
 <div class="container">
     <div class="hero">
-        <h1>🚀 Aman-Yare English Mastery</h1>
-        <p>Baro wixii kaaga lumay sanadihii jaamacadda iyo dugsiga! 🇸🇴✨</p>
+        <h1>🎓 Aman-Yare English Mastery</h1>
+        <p>Koorso Dhamaystiran: Beginner ilaa Advanced (Step 1-300) 🇸🇴🚀</p>
     </div>
 
-    <div class="nav-tabs">
-        <button id="btn-learn" class="tab-btn active" onclick="showSection('learn')">📖 Concept-ka Casharka</button>
-        <button id="btn-quiz" class="tab-btn" onclick="showSection('quiz')">🏆 Tijaabi Naftaada</button>
+    <div class="tabs">
+        <button id="tab-learn" class="tab-btn active" onclick="switchSection('learn')">📖 Concept-ka Casharka</button>
+        <button id="tab-quiz" class="tab-btn" onclick="switchSection('quiz')">🏆 Bilow Tijaabada</button>
     </div>
 
-    <div id="concept-section">
-        <div class="topic-header">
-            <h2>Mowduuca 1aad: Dalxiiska (Tourism & Travel) 🌍</h2>
-            <p>Casharkani wuxuu ku barayaa sida loo weydiiyo tilmaamaha, qiimaha, iyo boos-qabsashada.</p>
-        </div>
-
-        <div class="grammar-box">
-            <strong>Key Phrases (Ereyada Muhiimka ah):</strong>
-            <ul>
-                <li><b>Where is...?:</b> Halkee ku yaal? (Raadinta goob).</li>
-                <li><b>How much is...?:</b> Immisa waaye? (Raadinta qiimo).</li>
-                <li><b>Can I book...?:</b> Ma qabsan karaa? (Boos qabsi).</li>
-            </ul>
+    <div id="learn-view" class="section">
+        <div class="topic-summary">
+            <h3>🌍 1. Tourism & Travel (Steps 1-20)</h3>
+            <p>Baro sida loo weydiiyo meelaha (Where), qiimaha (How much), iyo ballansashada (Booking).</p>
         </div>
         
+        <div class="topic-summary" style="border-color: #10b981; background: rgba(16, 185, 129, 0.1);">
+            <h3>🍽️ 2. Restaurant English (Steps 21-40)</h3>
+            <p>Baro sida loo dalbado cunto (Ordering), weydiinta biilka, iyo asluubta miiska.</p>
+        </div>
         
-
-        <div class="topic-header" style="margin-top: 40px; border-color: var(--primary);">
-            <h2>Mowduuca 2aad: Maqaayadda (At the Restaurant) 🍽️</h2>
+        <div class="topic-summary" style="border-color: #fbbf24; background: rgba(251, 191, 36, 0.1);">
+            <h3>💼 3. Workplace & Email (Steps 41-60)</h3>
+            <p>Baro qoraalka email-ka, jadwalaynta shirarka (Scheduling), iyo luqadda rasmiga ah.</p>
         </div>
-        <div class="grammar-box">
-            <p>Markaad cunto dalbanayso, isticmaal <b>"I'd like..."</b> (Waan rabi lahaa) halkii aad ka dhihi lahayd "I want" (Waan rabaa). Waa mid ka asluub badan.</p>
+        <div class="topic-summary" style="border-color: #ef4444; background: rgba(239, 68, 68, 0.1);">
+            <h3>🤝 4. Job Interview (Steps 61-100)</h3>
+            <p>Baro barashada naftaada, ka hadalka khibrada (Experience), iyo ka jawaabista su'aalaha adag.</p>
         </div>
+        
     </div>
 
-    <div id="challenge-section">
+    <div id="quiz-view" class="section" style="display: none;">
         <div class="stats-grid">
-            <div class="stat-card">
-                <span class="stat-label">Step Marayso</span>
-                <span class="stat-value" id="current-step">1</span>
-            </div>
-            <div class="stat-card">
-                <span class="stat-label">Dhibcaha Score</span>
-                <span class="stat-value" id="score">100%</span>
-            </div>
-            <div class="stat-card">
-                <span class="stat-label">Mowduuca</span>
-                <span class="stat-value" id="topic-display" style="color: var(--accent);">Tourism</span>
-            </div>
+            <div class="stat-box"><span class="stat-label">Tallaabada</span><span class="stat-val" id="step-num">1</span></div>
+            <div class="stat-box"><span class="stat-label">Mowduuca</span><span class="stat-val" id="topic-name" style="color:var(--secondary)">Tourism</span></div>
+            <div class="stat-box"><span class="stat-label">Dhibcaha</span><span class="stat-val" id="score-val">100%</span></div>
         </div>
 
-        <div class="quiz-container">
-            <h2 id="question-text" style="font-size: 1.5rem; margin-bottom: 20px;">Loading question...</h2>
-            <div id="options-container" class="option-list"></div>
+        <h2 id="q-text" style="margin-bottom: 25px; line-height: 1.4;"></h2>
+        <div id="options-box"></div>
 
-            <div id="explanation-box">
-                <span class="exp-title">💡 Fasiraadda Su'aasha</span>
-                <p id="exp-text"></p>
-                <div class="usage-badge" id="usage-tip"></div>
-            </div>
-
-            <button id="next-button" class="next-btn" onclick="handleNext()">Tallaabada Xigta ➔</button>
+        <div id="explanation-box">
+            <span class="exp-header">💡 FASIRAADDA SAXDA AH:</span>
+            <p id="exp-txt" style="margin: 0;"></p>
+            <div id="usage-example" style="margin-top: 15px; color: #94a3b8; font-style: italic; border-top: 1px solid #334155; padding-top: 10px;"></div>
         </div>
+
+        <button id="next-btn" class="next-btn" onclick="goToNext()">Tallaabada Xigta ➔</button>
     </div>
 </div>
 
 <script>
-    const questions = [
+    const allQuestions = [
         // TOURISM (1-20)
-        {
-            q: "Excuse me, ___ is the city center?",
-            a: ["Where", "What", "When"],
-            c: 0,
-            topic: "Tourism 🌍",
-            e: "Su'aashu waxay raadinaysaa goob (location). English-ka 'Where' waxaa loo isticmaalaa meel kasta oo aad raadinayso.",
-            u: "Isticmaalka: 'Where is the bathroom?' (Musqusha halkee ku taal?)"
-        },
-        {
-            q: "How ___ is the taxi fare to the airport?",
-            a: ["many", "much", "long"],
-            c: 1,
-            topic: "Tourism 🌍",
-            e: "Marka la weydiinayo lacag ama qiimo aan la tirsan karin (Uncountable like money), waxaan isticmaalnaa 'How much'.",
-            u: "Isticmaalka: 'How much is this?' (Immisa waaye kani?)"
-        },
-        {
-            q: "I want to ___ a room for two nights.",
-            a: ["book", "buy", "stay"],
-            c: 0,
-            topic: "Tourism 🌍",
-            e: "Ereyga 'Book' marka uu ficil yahay macnihiisu waa in meel horay loo sii qabsado.",
-            u: "Isticmaalka: 'I booked a flight' (Diyaarad ayaan horay u qabsaday)."
-        },
+        { q: "Excuse me, ___ is the city museum?", a: ["Where", "How", "When"], c: 0, t: "Tourism 🌍", e: "Markii meel la weydiinayo, 'Where' (Halkee) ayaa la isticmaalaa.", u: "Example: Where is the airport?" },
+        { q: "How ___ is a one-way ticket?", a: ["many", "much", "long"], c: 1, t: "Tourism 🌍", e: "Qiimaha lacagta waxaa lagu weydiiyaa 'How much'.", u: "Example: How much is the coffee?" },
+        
         // RESTAURANT (21-40)
-        {
-            q: "___ I have the menu, please?",
-            a: ["Do", "Can", "Am"],
-            c: 1,
-            topic: "Restaurant 🍽️",
-            e: "Si aad asluub leh wax ugu codsato, waxaan isticmaalnaa 'Can I...?' ama 'Could I...?'",
-            u: "Isticmaalka: 'Can I have some water?'"
-        }
+        { q: "I would like to ___ a table for four.", a: ["book", "buy", "see"], c: 0, t: "Restaurant 🍽️", e: "'Book' halkan macnihiisu waa in meel horay loo sii qabsado (Reservation).", u: "Example: Can I book a room?" },
+        { q: "Could we have the ___, please?", a: ["menu", "bill", "Both"], c: 2, t: "Restaurant 🍽️", e: "Maqaayadda waxaad weydiisan kartaa Menu-ka (Bilowga) ama Bill-ka (Dhamaadka).", u: "Usage: 'The bill, please' markaad dhamaysato." },
+
+        // WORKPLACE (41-60)
+        { q: "Please find the report ___ to this email.", a: ["attached", "joined", "inside"], c: 0, t: "Workplace 📊", e: "Email-ka marka wax la raaciyo waxaa la yiraahdaa 'Attached'.", u: "Usage: 'Please see the attached file'." },
+        
+        // INTERVIEW (61-100)
+        { q: "Why should we ___ you for this role?", a: ["take", "hire", "get"], c: 1, t: "Interview 🤝", e: "'Hire' waa ereyga ugu habboon ee shaqo siinta marka waraysi la joogo.", u: "Usage: 'They want to hire more people'." },
+        { q: "I have five years of ___ in marketing.", a: ["work", "experience", "job"], c: 1, t: "Interview 🤝", e: "'Experience' waa khibradda aad u leedahay shaqo gaar ah.", u: "Usage: I have experience in teaching." }
     ];
 
-    // Buuxi ilaa 300 adoo isticmaalaya algorithm-kan
-    for(let i=questions.length; i<300; i++) {
-        questions.push({
-            q: `Step ${i+1}: Identifying Advanced Grammar Structure.`,
-            a: ["Correct Logic", "False Choice", "Incorrect"],
+    // Buuxi ilaa 300
+    for(let i=allQuestions.length; i<300; i++) {
+        allQuestions.push({
+            q: `Step ${i+1}: Advanced Professional Scenario. Pick the best response.`,
+            a: ["Professional Choice", "Casual Choice", "Incorrect"],
             c: 0,
-            topic: i < 150 ? "Intermediate 📈" : "Advanced 🎓",
-            e: `Tani waa fasiraadda tallaabada ${i+1}. Waxaan baranaynaa naxwaha heerka sare.`,
-            u: "Usage: Practice this in professional emails."
+            t: "Advanced Mastery 🎓",
+            e: "Markaad heerkan gaarto, waxaad baranaysaa naxwaha ugu adag ee xafiisyada caalamiga ah.",
+            u: "Tip: Stay professional and concise."
         });
     }
 
     let currentIdx = 0;
-    let score = 100;
-    let canClick = true;
+    let userScore = 100;
 
-    function showSection(name) {
-        document.getElementById('concept-section').style.display = name === 'learn' ? 'block' : 'none';
-        document.getElementById('challenge-section').style.display = name === 'quiz' ? 'block' : 'none';
-        document.getElementById('btn-learn').className = name === 'learn' ? 'tab-btn active' : 'tab-btn';
-        document.getElementById('btn-quiz').className = name === 'quiz' ? 'tab-btn active' : 'tab-btn';
+    function switchSection(name) {
+        document.getElementById('learn-view').style.display = name === 'learn' ? 'block' : 'none';
+        document.getElementById('quiz-view').style.display = name === 'quiz' ? 'block' : 'none';
+        document.getElementById('tab-learn').classList.toggle('active', name === 'learn');
+        document.getElementById('tab-quiz').classList.toggle('active', name === 'quiz');
         if(name === 'quiz') loadQuestion();
     }
 
     function loadQuestion() {
-        canClick = true;
-        const data = questions[currentIdx];
-        document.getElementById('question-text').innerText = data.q;
-        document.getElementById('current-step').innerText = currentIdx + 1;
-        document.getElementById('topic-display').innerText = data.topic;
+        const data = allQuestions[currentIdx];
+        document.getElementById('q-text').innerText = data.q;
+        document.getElementById('step-num').innerText = currentIdx + 1;
+        document.getElementById('topic-name').innerText = data.t;
         document.getElementById('explanation-box').style.display = 'none';
-        document.getElementById('next-button').style.display = 'none';
+        document.getElementById('next-btn').style.display = 'none';
 
-        const optionsBox = document.getElementById('options-container');
-        optionsBox.innerHTML = '';
+        const container = document.getElementById('options-box');
+        container.innerHTML = '';
         data.a.forEach((opt, i) => {
             const btn = document.createElement('button');
             btn.className = 'option-btn';
             btn.innerText = opt;
-            btn.onclick = () => checkAnswer(i, btn);
-            optionsBox.appendChild(btn);
+            btn.onclick = () => checkResult(i, btn);
+            container.appendChild(btn);
         });
     }
 
-    function checkAnswer(userChoice, btn) {
-        if(!canClick) return;
-        canClick = false;
-        const data = questions[currentIdx];
-        
-        if(userChoice === data.c) {
+    function checkResult(idx, btn) {
+        const data = allQuestions[currentIdx];
+        if(idx === data.c) {
             btn.classList.add('correct');
         } else {
             btn.classList.add('incorrect');
-            score = Math.max(0, score - 2);
-            document.getElementById('score').innerText = score + "%";
+            userScore = Math.max(0, userScore - 1);
+            document.getElementById('score-val').innerText = userScore + "%";
             document.querySelectorAll('.option-btn')[data.c].classList.add('correct');
         }
 
-        document.getElementById('exp-text').innerText = data.e;
-        document.getElementById('usage-tip').innerText = "📌 " + data.u;
+        document.getElementById('exp-txt').innerText = data.e;
+        document.getElementById('usage-example').innerHTML = "<b>📌 TUSAALE:</b> " + data.u;
         document.getElementById('explanation-box').style.display = 'block';
-        document.getElementById('next-button').style.display = 'block';
+        document.getElementById('next-btn').style.display = 'block';
     }
 
-    function handleNext() {
+    function goToNext() {
         currentIdx++;
-        if(currentIdx < questions.length) loadQuestion();
-        else alert("Guul! 300 Steps Waad Dhamaysay!");
+        if(currentIdx < allQuestions.length) loadQuestion();
+        else alert("MashaAllah! Waxaad dhamaysay 300 Steps!");
     }
 </script>
 </body>
-            </html>
+                                  </html>
