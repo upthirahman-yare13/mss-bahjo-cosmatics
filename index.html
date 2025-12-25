@@ -3,106 +3,146 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>1000 Steps English Challenge | Aman-Yare</title>
+    <title>1000 Steps Challenge | Aman-Yare Academy</title>
     <style>
-        :root { --primary: #10b981; --bg: #0b0f19; }
+        :root { --primary: #10b981; --error: #ef4444; --bg: #0b0f19; --card: #1e293b; }
         body { font-family: 'Segoe UI', sans-serif; background: var(--bg); color: white; text-align: center; margin: 0; }
-        .header { background: var(--primary); padding: 15px; font-weight: bold; position: sticky; top: 0; }
-        .container { max-width: 600px; margin: 50px auto; padding: 20px; }
+        .header { background: var(--primary); padding: 15px; font-weight: bold; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 10px rgba(0,0,0,0.3); }
+        .container { max-width: 600px; margin: 40px auto; padding: 20px; }
         
-        .progress-bar { background: #1e293b; height: 10px; border-radius: 5px; margin-bottom: 20px; }
-        #progress-fill { background: var(--primary); height: 100%; width: 0%; border-radius: 5px; transition: 0.5s; }
+        /* Progress */
+        .progress-info { margin-bottom: 10px; font-size: 0.9rem; color: #9ca3af; }
+        .progress-bar { background: #334155; height: 12px; border-radius: 10px; margin-bottom: 30px; overflow: hidden; }
+        #progress-fill { background: var(--primary); height: 100%; width: 0%; transition: 0.4s; }
 
-        .quiz-card { background: #1e293b; padding: 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-        .option-btn { 
-            display: block; width: 100%; padding: 15px; margin: 10px 0; 
-            background: #334155; color: white; border: 2px solid transparent; 
-            border-radius: 8px; cursor: pointer; font-size: 1.1rem; transition: 0.3s;
-        }
-        .option-btn:hover { border-color: var(--primary); }
-        .correct { background: var(--primary) !important; }
-        .wrong { background: #ef4444 !important; }
+        /* Quiz Card */
+        .quiz-card { background: var(--card); padding: 30px; border-radius: 20px; border: 1px solid #334155; box-shadow: 0 15px 35px rgba(0,0,0,0.4); }
+        #question-text { font-size: 1.4rem; margin-bottom: 25px; line-height: 1.4; }
         
-        #win-message { display: none; }
-        .wa-link { color: var(--primary); text-decoration: none; font-weight: bold; }
+        .option-btn { 
+            display: block; width: 100%; padding: 15px; margin: 12px 0; 
+            background: #334155; color: white; border: 2px solid transparent; 
+            border-radius: 12px; cursor: pointer; font-size: 1.1rem; transition: 0.2s; font-weight: 500;
+        }
+        .option-btn:hover { border-color: var(--primary); background: #3f4e66; }
+        
+        /* Feedback Classes */
+        .correct { background: var(--primary) !important; border-color: #059669 !important; transform: scale(1.02); }
+        .incorrect { background: var(--error) !important; border-color: #b91c1c !important; animation: shake 0.3s; }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+
+        #feedback-text { font-weight: bold; margin-top: 15px; height: 20px; font-size: 1.1rem; }
+        #win-msg { display: none; }
+        .wa-btn { background: #2563eb; color: white; padding: 15px 30px; border-radius: 10px; text-decoration: none; display: inline-block; margin-top: 20px; font-weight: bold; }
     </style>
 </head>
 <body>
 
 <div class="header">
-    🏆 ENGLISH CHALLENGE: STEP <span id="step-num">1</span> / 1000
+    🏆 ENGLISH 1000 STEPS: <span id="current-step">1</span> / 1000
 </div>
 
 <div class="container">
+    <div class="progress-info">Dhibcahaaga: <span id="score-val">0</span>%</div>
     <div class="progress-bar"><div id="progress-fill"></div></div>
 
     <div id="quiz-area" class="quiz-card">
-        <h2 id="question-text">Loading question...</h2>
+        <h2 id="question-text">Loading...</h2>
         <div id="options-container"></div>
+        <div id="feedback-text"></div>
     </div>
 
-    <div id="win-message" class="quiz-card">
-        <h2>🎉 CONGRATULATIONS!</h2>
-        <p>Waxaad dhamaysay 1000-kii su'aalood ee luuqadda Ingiriisiga!</p>
-        <p>Screenshot ka qaad oo u dir macallinka:</p>
-        <a href="https://wa.me/252613040087" class="wa-link">WhatsApp: +252 613040087</a>
+    <div id="win-msg" class="quiz-card">
+        <h2 style="color: var(--primary);">🎉 MABRUUK! 🎉</h2>
+        <p>Waxaad si guul leh u dhamaysatay qaybtii koowaad ee caqabadda 1000-ka tallaabo ah!</p>
+        <p>Screenshot ka qaad oo u dir macallin Aman-Yare:</p>
+        <a href="https://wa.me/252613040087" class="wa-btn">U dir WhatsApp (613040087)</a>
     </div>
 </div>
 
 <script>
-    // TUSAALE: Waxaad halkan ku dari kartaa ilaa 1000 su'aalood
-    const quizData = [
-        { q: "I ___ a student.", a: ["am", "is", "are"], c: 0 },
-        { q: "She ___ to school every day.", a: ["go", "goes", "going"], c: 1 },
-        { q: "They ___ football now.", a: ["play", "is playing", "are playing"], c: 2 },
-        { q: "He doesn't ___ coffee.", a: ["likes", "like", "liking"], c: 1 },
-        { q: "___ you speak English?", a: ["Do", "Does", "Is"], c: 0 },
-        // Waxaad halkan ka sii wadi kartaa ilaa 1000...
+    // 50 Questions (Template) - Waxaad ku dari kartaa ilaa 1000
+    const questions = [
+        { q: "I ___ a teacher.", a: ["am", "is", "are"], c: 0 },
+        { q: "She ___ breakfast at 7 AM.", a: ["have", "has", "having"], c: 1 },
+        { q: "Where ___ you live?", a: ["do", "does", "is"], c: 0 },
+        { q: "They ___ football now.", a: ["play", "plays", "are playing"], c: 2 },
+        { q: "He doesn't ___ coffee.", a: ["like", "likes", "liking"], c: 0 },
+        { q: "Look! The sun ___.", a: ["shines", "is shining", "shine"], c: 1 },
+        { q: "___ you at home yesterday?", a: ["Was", "Were", "Did"], c: 1 },
+        { q: "I ___ to London last year.", a: ["go", "went", "gone"], c: 1 },
+        { q: "She is ___ than her sister.", a: ["tall", "taller", "tallest"], c: 1 },
+        { q: "We ___ watching a movie now.", a: ["am", "is", "are"], c: 2 },
+        // Halkan ka sii wad ilaa aad ka gaarto 1000 su'aalood...
     ];
 
-    let currentStep = 0;
+    let currentIdx = 0;
+    let canClick = true;
 
-    function loadQuestion() {
-        if (currentStep >= quizData.length) {
+    function loadQuiz() {
+        if (currentIdx >= questions.length) {
             document.getElementById('quiz-area').style.display = 'none';
-            document.getElementById('win-message').style.display = 'block';
+            document.getElementById('win-msg').style.display = 'block';
             return;
         }
 
-        const data = quizData[currentStep];
-        document.getElementById('step-num').innerText = currentStep + 1;
+        canClick = true;
+        const data = questions[currentIdx];
+        document.getElementById('current-step').innerText = currentIdx + 1;
         document.getElementById('question-text').innerText = data.q;
+        document.getElementById('feedback-text').innerText = "";
         
-        const optionsDiv = document.getElementById('options-container');
-        optionsDiv.innerHTML = "";
+        const optDiv = document.getElementById('options-container');
+        optDiv.innerHTML = "";
         
-        data.a.forEach((opt, index) => {
+        data.a.forEach((opt, i) => {
             const btn = document.createElement('button');
             btn.className = 'option-btn';
             btn.innerText = opt;
-            btn.onclick = () => checkAnswer(index, btn);
-            optionsDiv.appendChild(btn);
+            btn.onclick = () => selectOption(i, btn);
+            optDiv.appendChild(btn);
         });
 
-        const progress = ((currentStep) / quizData.length) * 100;
+        const progress = (currentIdx / questions.length) * 100;
         document.getElementById('progress-fill').style.width = progress + "%";
+        document.getElementById('score-val').innerText = Math.round(progress);
     }
 
-    function checkAnswer(idx, btn) {
-        const correctIdx = quizData[currentStep].c;
-        if (idx === correctIdx) {
+    function selectOption(idx, btn) {
+        if (!canClick) return;
+        canClick = false;
+
+        const correct = questions[currentIdx].c;
+        const feedback = document.getElementById('feedback-text');
+
+        if (idx === correct) {
             btn.classList.add('correct');
+            feedback.innerText = "✅ Correct!";
+            feedback.style.color = "#10b981";
+            
             setTimeout(() => {
-                currentStep++;
-                loadQuestion();
-            }, 600);
+                currentIdx++;
+                loadQuiz();
+            }, 1200);
         } else {
-            btn.classList.add('wrong');
-            setTimeout(() => btn.classList.remove('wrong'), 500);
+            btn.classList.add('incorrect');
+            feedback.innerText = "❌ Incorrect! Try again.";
+            feedback.style.color = "#ef4444";
+            
+            setTimeout(() => {
+                btn.classList.remove('incorrect');
+                feedback.innerText = "";
+                canClick = true;
+            }, 800);
         }
     }
 
-    loadQuestion();
+    loadQuiz();
 </script>
 
 </body>
