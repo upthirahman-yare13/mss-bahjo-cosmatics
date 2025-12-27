@@ -3,99 +3,107 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Queen Rumaan 👑</title>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;600&display=swap" rel="stylesheet">
+    <title>For My Queen Rumaan 🌹</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Playfair+Display:ital,wght@1,600&display=swap" rel="stylesheet">
     <style>
-        :root { --gold: #D4AF37; --pink: #FF69B4; --black: #050505; }
-        body { font-family: 'Poppins', sans-serif; background: var(--black); color: white; margin: 0; text-align: center; overflow-x: hidden; }
+        body { margin: 0; background: #050505; color: white; font-family: 'Playfair Display', serif; overflow: hidden; }
         
-        /* Sparkle/Glitter Effect */
-        .glitter { position: fixed; width: 2px; height: 2px; background: white; border-radius: 50%; opacity: 0; animation: flash 3s infinite; }
-        @keyframes flash { 0%, 100% { opacity: 0; } 50% { opacity: 1; } }
+        /* Falling Rose Petals */
+        .petal { position: fixed; top: -10%; color: #ff4d6d; user-select: none; z-index: 1000; pointer-events: none; animation: fall linear forwards; }
+        @keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }
 
-        /* Floating Hearts */
-        @keyframes floating { 0% { transform: translateY(0) rotate(0); opacity: 1; } 100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; } }
-        .heart { position: fixed; bottom: -10px; color: var(--pink); animation: floating 6s linear infinite; z-index: 10; pointer-events: none; }
+        .container { height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; background: radial-gradient(circle, #1a0a0a 0%, #050505 100%); }
 
-        /* Profile & Hero */
-        .hero { padding: 80px 20px; background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('https://images.unsplash.com/photo-1513151233558-d860c5398176?w=1200'); background-size: cover; border-bottom: 2px solid var(--gold); }
-        .profile-img { width: 220px; height: 220px; border-radius: 50%; border: 5px solid var(--gold); object-fit: cover; box-shadow: 0 0 50px var(--gold); animation: pulse 2s infinite alternate; }
-        @keyframes pulse { from { transform: scale(1); box-shadow: 0 0 20px var(--gold); } to { transform: scale(1.05); box-shadow: 0 0 45px var(--pink); } }
+        /* Heart Profile */
+        .heart-frame {
+            position: relative; width: 250px; height: 250px;
+            background: url('https://i.ibb.co/3ykG8Lw/IMG-20250912-WA0005.jpg');
+            background-size: cover; background-position: center;
+            clip-path: path('M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z');
+            border: 4px solid #D4AF37; box-shadow: 0 0 50px #ff4d6d;
+            animation: heartbeat 1.5s infinite;
+        }
+        @keyframes heartbeat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
 
-        h1 { font-family: 'Dancing Script', cursive; color: var(--gold); font-size: 55px; margin: 15px 0; text-shadow: 2px 2px 10px rgba(212,175,55,0.5); }
-        
-        /* Wish Box Upgrade */
-        .wish-container { background: #111; padding: 30px; border-radius: 25px; border: 1px solid var(--gold); max-width: 450px; margin: 40px auto; box-shadow: 0 0 20px rgba(212,175,55,0.2); }
-        textarea { width: 100%; height: 100px; border-radius: 15px; border: 1px solid #333; background: #000; color: white; padding: 15px; font-family: inherit; resize: none; margin-bottom: 15px; box-sizing: border-box; }
-        .send-btn { background: linear-gradient(45deg, var(--gold), #f1c40f); color: black; border: none; padding: 15px; border-radius: 50px; font-weight: 900; cursor: pointer; width: 100%; transition: 0.3s; }
-        .send-btn:hover { letter-spacing: 2px; transform: scale(1.02); }
+        h1 { font-family: 'Dancing Script', cursive; font-size: 3.5rem; color: #D4AF37; margin: 20px 0; }
+        .timer-display { color: #ffb3c1; font-size: 0.9rem; margin-bottom: 20px; opacity: 0.7; }
 
-        .plane-anim { position: absolute; font-size: 40px; animation: fly 15s linear infinite; z-index: 5; }
-        @keyframes fly { 0% { left: -100px; top: 20%; transform: rotate(10deg); } 100% { left: 110%; top: 50%; transform: rotate(-10deg); } }
+        /* The Game */
+        .btn-container { display: flex; gap: 20px; justify-content: center; margin-top: 20px; position: relative; }
+        button { padding: 12px 35px; border-radius: 50px; border: none; font-size: 1.1rem; cursor: pointer; transition: 0.3s; font-family: inherit; }
+        #yesBtn { background: #ff4d6d; color: white; box-shadow: 0 0 20px #ff4d6d; }
+        #noBtn { background: #444; color: white; position: absolute; }
+
+        #final-msg { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 2000; flex-direction: column; align-items: center; justify-content: center; }
     </style>
 </head>
 <body>
 
-<div class="hero">
-    <div class="plane-anim">✈️</div>
-    <img src="https://i.ibb.co/3ykG8Lw/IMG-20250912-WA0005.jpg" alt="Rumaan" class="profile-img">
-    <h1>Queen Rumaan 👑</h1>
-    <p style="font-size: 22px; color: var(--gold); font-family: 'Dancing Script', cursive;">Your Dream Pilot is Here!</p>
-    
-    <div style="margin: 20px 0;">
-        <span style="border: 2px solid var(--gold); padding: 8px 25px; border-radius: 50px; font-weight: bold; color: var(--gold);">SWEET 16 ✨</span>
+    <div class="container">
+        <div class="timer-display">Waqtiga aad nolosheyda ku dhex jirtay: <span id="seconds">0</span> ilbiriqsi</div>
+        <div class="heart-frame"></div>
+        <h1>Rumaan ❤️</h1>
+        <p id="typewriter" style="max-width: 80%; color: #ffb3c1; min-height: 50px;"></p>
+
+        <div class="game-section">
+            <p style="color: #D4AF37;">Ma i jeceshahay, Boqoraddayda?</p>
+            <div class="btn-container">
+                <button id="yesBtn" onclick="showFinal()">HAA 😍</button>
+                <button id="noBtn" onmouseover="moveNo()">MAYA 😢</button>
+            </div>
+        </div>
     </div>
-</div>
 
-<div class="wish-container">
-    <h2 style="font-family: 'Dancing Script', cursive; color: var(--pink); font-size: 30px;">Make a Wish, Rumaan! 🪄</h2>
-    <p style="font-size: 14px; opacity: 0.8;">Qor riyadaada ama waxaad rabto inaan kuu dhameeyo!</p>
-    <textarea id="wish-box" placeholder="Write your secret wish here..."></textarea>
-    <button class="send-btn" onclick="sendWish()">SEND TO UPTHI 🚀</button>
-</div>
-
-<div style="padding: 40px;">
-    <h3 style="font-family: 'Dancing Script', cursive; color: var(--gold); font-size: 35px;">Gift Album 🎁</h3>
-    <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 15px;">
-        <img src="https://images.unsplash.com/photo-1513151233558-d860c5398176?w=300" style="width: 150px; height: 150px; border-radius: 15px; object-fit: cover;">
-        <img src="https://images.unsplash.com/photo-1583417319070-4a69db38a482?w=300" style="width: 150px; height: 150px; border-radius: 15px; object-fit: cover;">
-        <img src="https://images.unsplash.com/photo-1541019177149-bef500cbb2a2?w=300" style="width: 150px; height: 150px; border-radius: 15px; object-fit: cover;">
+    <div id="final-msg">
+        <h1 style="color: #ff4d6d;">I Knew It! ❤️</h1>
+        <p id="time-report"></p>
+        <button onclick="sendWA()" style="background: #25d366; color: white; margin-top: 20px;">WhatsApp iigu soo sheeg 😍</button>
     </div>
-</div>
 
-<footer style="padding: 50px; border-top: 1px solid #222; font-size: 14px;">
-    Designed with Love for Rumaan <br>
-    <span style="color: var(--gold); font-weight: bold;">© 2025 UPTHIRAHMAAN</span>
-</footer>
+    <script>
+        let seconds = 0;
+        setInterval(() => {
+            seconds++;
+            document.getElementById('seconds').innerText = seconds;
+        }, 1000);
 
-<script>
-    function sendWish() {
-        const text = document.getElementById('wish-box').value;
-        if(text.trim() === "") { alert("Fadlan wax qor!"); return; }
-        const myWhatsApp = "252771941086"; 
-        window.open(`https://wa.me/${myWhatsApp}?text=${encodeURIComponent("Queen Rumaan Wish: " + text)}`, '_blank');
-    }
+        function moveNo() {
+            const btn = document.getElementById('noBtn');
+            btn.style.left = Math.random() * (window.innerWidth - 100) + 'px';
+            btn.style.top = Math.random() * (window.innerHeight - 50) + 'px';
+        }
 
-    // Generate Glitter
-    for(let i=0; i<50; i++) {
-        let star = document.createElement("div");
-        star.className = "glitter";
-        star.style.left = Math.random() * 100 + "vw";
-        star.style.top = Math.random() * 100 + "vh";
-        star.style.animationDelay = Math.random() * 3 + "s";
-        document.body.appendChild(star);
-    }
+        function showFinal() {
+            document.getElementById('final-msg').style.display = 'flex';
+            document.getElementById('time-report').innerText = `Waxaad eegaysay sawirkayga muddo ${seconds} ilbiriqsi ah!`;
+        }
 
-    // Generate Hearts
-    setInterval(() => {
-        let h = document.createElement("div");
-        h.innerHTML = "❤"; h.className = "heart";
-        h.style.left = Math.random() * 100 + "vw";
-        h.style.fontSize = Math.random() * 20 + 15 + "px";
-        document.body.appendChild(h);
-        setTimeout(() => h.remove(), 6000);
-    }, 400);
-</script>
+        function sendWA() {
+            const num = "252771941086";
+            const msg = `Haa Upthi, waan ku jeclahay! Waxaan bogga ku dhex jiray ${seconds} ilbiriqsi. ❤️`;
+            window.open(`https://wa.me/${num}?text=${encodeURIComponent(msg)}`, '_blank');
+        }
 
+        // Falling Roses
+        setInterval(() => {
+            const p = document.createElement('div');
+            p.innerHTML = '🌹'; p.className = 'petal';
+            p.style.left = Math.random() * 100 + 'vw';
+            p.style.animationDuration = Math.random() * 3 + 2 + 's';
+            document.body.appendChild(p);
+            setTimeout(() => p.remove(), 5000);
+        }, 300);
+
+        // Typewriter
+        const txt = "Adiga ayaa ah qofka ugu qaalisan ee nolosheyda soo gala...";
+        let j = 0;
+        function typing() {
+            if (j < txt.length) {
+                document.getElementById("typewriter").innerHTML += txt.charAt(j);
+                j++; setTimeout(typing, 100);
+            }
+        }
+        typing();
+    </script>
 </body>
-        </html>
+</html>
