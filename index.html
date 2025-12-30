@@ -3,117 +3,184 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dr. Zuhuur Upthi Kariin Ali | Medical Scientist</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@300;400;600&family=JetBrains+Mono&display=swap" rel="stylesheet">
+    <title>Dr. Zuhuur | PhD Medical Executive</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@300;400;600&family=JetBrains+Mono&display=swap" rel="stylesheet">
     <style>
-        :root { --med-blue: #0a2342; --teal: #1db954; --gold: #c5a059; --bg: #ffffff; --dark: #121212; }
-        body { font-family: 'Inter', sans-serif; margin: 0; background: var(--bg); color: var(--dark); line-height: 1.6; }
+        :root { 
+            --royal-blue: #0a192f; 
+            --gold: #d4af37; 
+            --silver: #e2e8f0; 
+            --white: #ffffff;
+            --accent-teal: #64ffda;
+        }
+        
+        body { 
+            font-family: 'Inter', sans-serif; 
+            margin: 0; 
+            background: var(--white); 
+            color: var(--royal-blue); 
+            line-height: 1.7; 
+        }
 
-        /* PhD Executive Header */
-        nav { padding: 25px 8%; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #eee; background: white; position: sticky; top: 0; z-index: 1000; }
-        .logo { font-family: 'Playfair Display', serif; font-weight: 700; color: var(--med-blue); font-size: 1.5rem; letter-spacing: 1px; }
-        .phd-stamp { border: 2px solid var(--med-blue); padding: 5px 15px; font-weight: 700; font-size: 0.8rem; color: var(--med-blue); text-transform: uppercase; }
+        /* Luxury Header */
+        nav { 
+            padding: 25px 8%; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            background: var(--royal-blue); 
+            color: white;
+            position: sticky; 
+            top: 0; 
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        .logo { font-family: 'Playfair Display', serif; font-size: 1.6rem; color: var(--gold); }
+        .phd-badge { border: 1px solid var(--gold); padding: 5px 15px; font-size: 0.7rem; letter-spacing: 2px; color: var(--gold); }
 
-        /* Professional Hero */
-        .hero { padding: 100px 8%; background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); border-bottom: 1px solid #ddd; }
-        .hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.5rem, 5vw, 4rem); color: var(--med-blue); margin: 0; }
-        .hero p { font-size: 1.3rem; color: #555; max-width: 800px; margin-top: 20px; font-weight: 300; }
-        .hero .contact-link { display: inline-block; margin-top: 30px; color: var(--med-blue); font-weight: 700; text-decoration: none; border-bottom: 2px solid var(--med-blue); }
+        /* Elegant Hero */
+        .hero { 
+            padding: 120px 8%; 
+            background: radial-gradient(circle at top right, #f8fafc, #e2e8f0);
+            text-align: left;
+            border-bottom: 5px solid var(--gold);
+        }
+        .hero h1 { 
+            font-family: 'Playfair Display', serif; 
+            font-size: clamp(3rem, 6vw, 4.5rem); 
+            margin: 0; 
+            color: var(--royal-blue);
+            line-height: 1.1;
+        }
+        .hero span { color: var(--gold); }
+        .hero p { font-size: 1.4rem; max-width: 750px; color: #475569; margin-top: 25px; font-weight: 300; }
 
         .container { max-width: 1200px; margin: 0 auto; padding: 80px 8%; }
 
-        /* PhD Skills Matrix */
-        .expert-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 40px; }
-        .expert-card { padding: 40px; border: 1px solid #eee; background: white; transition: 0.3s; position: relative; }
-        .expert-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.05); border-color: var(--gold); }
-        .expert-card::before { content: ""; position: absolute; top: 0; left: 0; width: 5px; height: 100%; background: var(--med-blue); }
-        .expert-card h3 { font-family: 'Playfair Display', serif; font-size: 1.8rem; color: var(--med-blue); margin-top: 0; }
-        
-        /* Research Nodes */
-        .nodes { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px; }
-        .node { background: #f0f4f8; padding: 5px 12px; font-size: 0.75rem; font-family: 'JetBrains Mono'; font-weight: 600; color: #444; text-transform: uppercase; }
+        /* Medical Expert Cards */
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 30px; }
+        .card { 
+            background: white; 
+            padding: 50px; 
+            border: 1px solid #e2e8f0; 
+            border-radius: 4px;
+            transition: 0.4s;
+            position: relative;
+            overflow: hidden;
+        }
+        .card:hover { border-color: var(--gold); transform: translateY(-10px); box-shadow: 0 30px 60px rgba(0,0,0,0.05); }
+        .card h3 { font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; color: var(--gold); text-transform: uppercase; letter-spacing: 3px; }
+        .card h2 { font-family: 'Playfair Display', serif; font-size: 2rem; margin: 15px 0; }
 
-        /* Executive Gift Box from Upthirahmaan */
-        .surprise-section { margin-top: 100px; background: var(--med-blue); padding: 60px; border-radius: 4px; color: white; text-align: center; }
-        .gift-btn { background: var(--gold); color: black; border: none; padding: 20px 40px; font-weight: 700; cursor: pointer; text-transform: uppercase; letter-spacing: 2px; transition: 0.3s; }
-        .gift-btn:hover { background: white; }
+        /* Gift Section (The Surprise) */
+        .surprise-box { 
+            background: var(--royal-blue); 
+            color: white; 
+            padding: 80px 40px; 
+            text-align: center; 
+            border-radius: 8px;
+            margin-top: 80px;
+            position: relative;
+        }
+        .gift-btn { 
+            background: var(--gold); 
+            color: var(--royal-blue); 
+            padding: 20px 50px; 
+            border: none; 
+            font-weight: 800; 
+            font-size: 1.1rem;
+            cursor: pointer; 
+            text-transform: uppercase; 
+            letter-spacing: 2px;
+            transition: 0.3s;
+        }
+        .gift-btn:hover { background: var(--white); transform: scale(1.05); }
 
-        #gift-reveal { display: none; margin-top: 40px; animation: fadeIn 1s; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        #reveal { display: none; margin-top: 50px; animation: fadeInUp 0.8s ease; }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
 
-        .iphone-box { background: rgba(255,255,255,0.1); padding: 30px; border-radius: 10px; border: 1px solid var(--gold); display: inline-block; }
+        .iphone-card { 
+            background: linear-gradient(145deg, #1e293b, #0f172a); 
+            padding: 40px; 
+            border-radius: 20px; 
+            border: 1px solid var(--gold); 
+            display: inline-block;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        }
+        .congrats { 
+            font-family: 'Dancing Script', cursive; 
+            font-size: 1.8rem; 
+            color: var(--gold); 
+            margin-top: 20px; 
+            border-top: 1px solid rgba(212,175,55,0.3);
+            padding-top: 15px;
+        }
 
-        footer { padding: 60px 8%; border-top: 1px solid #eee; color: #999; font-size: 0.8rem; text-align: center; }
+        footer { padding: 60px; text-align: center; border-top: 1px solid #eee; font-size: 0.8rem; color: #94a3b8; }
+        .wa-link { color: var(--gold); text-decoration: none; font-weight: bold; }
     </style>
 </head>
 <body>
 
     <nav>
         <div class="logo">DR. ZUHUUR UPTHI</div>
-        <div class="phd-stamp">Medical Scientist // PhD Level</div>
+        <div class="phd-badge">PHD RESEARCHER // EXECUTIVE</div>
     </nav>
 
-    <section class="hero">
-        <h1>Dr. Zuhuur Upthi Kariin Ali</h1>
-        <p>Khabiir ku takhasustay Cilmibaarista Caafimaadka, Maareynta Nidaamyada Clinical-ka ah, iyo Horumarinta Caafimaadka Dadweynaha (Public Health Strategy).</p>
-        <a href="https://wa.me/252613040087" class="contact-link">Hala hadal Dr. Zuhuur (WhatsApp)</a>
-    </section>
+    <div class="hero">
+        <h1>Dr. Zuhuur <span>Upthi Kariin Ali</span></h1>
+        <p>Expert in Clinical Systems, Public Health Strategy, and Medical Research Leadership.</p>
+        <div style="margin-top: 30px; font-family: 'JetBrains Mono';">
+            Direct Contact: <a href="https://wa.me/252617911816" class="wa-link">+252 61 7911816</a>
+        </div>
+    </div>
 
     <div class="container">
-        <div class="expert-grid">
-            <div class="expert-card">
-                <h3>Clinical Research</h3>
-                <p>Falanqaynta iyo maareynta mashaariicda caafimaad ee heer PhD, iyadoo xoogga la saarayo badbaadinta nolosha iyo tayaynta daryeelka.</p>
-                <div class="nodes">
-                    <span class="node">Epidemiology</span>
-                    <span class="node">Advanced Nursing</span>
-                    <span class="node">System Audit</span>
-                </div>
+        <div class="grid">
+            <div class="card">
+                <h3>Department 01</h3>
+                <h2>Advanced Clinical Research</h2>
+                <p>Cilmibaaris heer PhD ah oo lagu falanqeynayo xogta caafimaadka si loo gaaro go'aamo badbaadin kara nolosha kumanaan qof.</p>
             </div>
-
-            <div class="expert-card">
-                <h3>Medical Strategy</h3>
-                <p>Hoggaaminta kooxaha caafimaadka iyo dhisidda istaraatiijiyado lagu xallinayo dhibaatooyinka caafimaad ee bulshada.</p>
-                <div class="nodes">
-                    <span class="node">Health Policy</span>
-                    <span class="node">Crisis Leadership</span>
-                    <span class="node">PhD Analysis</span>
-                </div>
+            <div class="card">
+                <h3>Department 02</h3>
+                <h2>Healthcare Leadership</h2>
+                <p>Maareynta nidaamyada caafimaadka ee adag iyo hoggaaminta mashaariicda tallaalka iyo daryeelka hooyada.</p>
             </div>
         </div>
 
-        <div class="surprise-section">
-            <h2 style="font-family: 'Playfair Display'; font-size: 2.5rem;">Executive Gift from Upthirahmaan</h2>
-            <p style="margin-bottom: 30px; opacity: 0.8;">Dr. Zuhuur, taabo badhanka si aad u furto hadiyadda laguugu talagalay...</p>
-            <button class="gift-btn" onclick="revealGift()">Open Executive Gift 🎁</button>
+        <div class="surprise-box">
+            <h2 style="font-family: 'Playfair Display'; font-size: 2.5rem; margin-bottom: 30px;">Executive Gift Unveiling</h2>
+            <button class="gift-btn" onclick="openGift()">Reveal Your Surprise 🎁</button>
 
-            <div id="gift-reveal">
-                <div class="iphone-box">
-                    <span style="font-size: 50px;">📱</span>
-                    <h3 style="color: var(--gold); margin: 10px 0;">iPhone 17 Pro Max</h3>
-                    <p style="font-size: 0.9rem;">Titanium Edition - 1TB | Specially for Dr. Zuhuur</p>
-                    <div style="background: var(--gold); color: black; padding: 10px; margin-top: 20px; font-weight: 700;">
-                        CONGRATULATIONS FROM UPTHIRAHMAAN
+            <div id="reveal">
+                <div class="iphone-card">
+                    <div style="font-size: 60px;">📱</div>
+                    <h2 style="color: white; margin: 10px 0;">iPhone 17 Pro Max</h2>
+                    <p style="color: var(--gold);">Titanium Gold | 1TB Edition</p>
+                    <div class="congrats">
+                        Hambalyo Dr. Zuhuur! <br>
+                        <span style="font-size: 1.2rem; color: white;">Special Gift from Upthirahmaan</span>
                     </div>
                 </div>
-                <div style="margin-top: 30px; font-style: italic;">
-                    💉 Agabka Caafimaadka (Stethoscope & Vaccination Kit) sidoo kale waa laguugu diyaariyey.
+                <div style="margin-top: 30px; color: var(--silver); font-style: italic;">
+                    💉 Agabka Caafimaadka ee PhD-da sidoo kale waa kuu diyaar.
                 </div>
             </div>
         </div>
     </div>
 
     <footer>
-        © 2025 DR. ZUHUUR UPTHI KARIIN ALI | RESEARCH PORTFOLIO <br>
-        <span style="color: #bbb;">SYSTEM ARCHITECTURE BY UPTHIRAHMAAN</span>
+        © 2025 DR. ZUHUUR UPTHI KARIIN ALI | RESEARCH LABORATORY <br>
+        DEVELOPED BY UPTHIRAHMAAN | CONTACT: +252617911816
     </footer>
 
     <script>
-        function revealGift() {
-            var x = document.getElementById("gift-reveal");
+        function openGift() {
+            var x = document.getElementById("reveal");
             x.style.display = (x.style.display === "block") ? "none" : "block";
             if(x.style.display === "block") x.scrollIntoView({ behavior: 'smooth' });
         }
     </script>
 </body>
-                        </html>
+</html>
