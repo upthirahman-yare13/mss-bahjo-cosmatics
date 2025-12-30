@@ -3,119 +3,100 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zuhuur | Medical Island Portfolio</title>
+    <title>Zuhuur | Medical & Surprise Portfolio</title>
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;500;700&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
     <style>
-        :root { --sea: #0077be; --teal: #20c997; --white: #ffffff; --gold: #ffd700; }
+        :root { --sea: #0077be; --teal: #20c997; --gold: #d4af37; --apple: #1a1a1a; }
         body { font-family: 'Quicksand', sans-serif; margin: 0; background: #f0f8ff; color: #333; overflow-x: hidden; }
 
-        /* Background Music Button */
-        .music-control { position: fixed; bottom: 20px; right: 20px; z-index: 1000; background: var(--sea); color: white; border: none; padding: 10px; border-radius: 50%; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
+        .music-control { position: fixed; bottom: 20px; right: 20px; z-index: 1000; background: var(--sea); color: white; border: none; padding: 12px; border-radius: 50%; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
 
-        /* Hero Section with Island & City */
         .hero { 
-            height: 90vh; 
+            height: 70vh; 
             background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1559128010-7c1ad6e1b6a5?q=80&w=1470&auto=format&fit=crop'); 
-            background-size: cover; 
-            background-position: center;
+            background-size: cover; background-position: center;
             display: flex; flex-direction: column; justify-content: center; align-items: center; color: white; text-align: center;
-            position: relative;
         }
-        .hero h1 { font-family: 'Dancing Script', cursive; font-size: 6rem; margin: 0; text-shadow: 3px 3px 15px rgba(0,0,0,0.6); animation: float 3s ease-in-out infinite; }
-        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
-        .hero p { font-size: 1.6rem; font-weight: 300; letter-spacing: 4px; background: rgba(0,0,0,0.3); padding: 5px 20px; border-radius: 50px; }
+        .hero h1 { font-family: 'Dancing Script', cursive; font-size: 5rem; margin: 0; text-shadow: 2px 2px 10px rgba(0,0,0,0.5); }
 
-        .container { max-width: 1000px; margin: -60px auto 50px; padding: 20px; position: relative; z-index: 10; }
+        .container { max-width: 950px; margin: -40px auto 50px; padding: 20px; }
 
-        /* Medical Dashboard Card */
-        .medical-card { 
-            background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); border-radius: 30px; padding: 45px; 
-            box-shadow: 0 20px 50px rgba(0,0,0,0.15); border-top: 8px solid var(--teal); margin-bottom: 40px; text-align: center;
+        .gifts-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; }
+        .gift-box-wrapper { background: white; padding: 40px; border-radius: 30px; text-align: center; border: 2px dashed #ddd; box-shadow: 0 10px 30px rgba(0,0,0,0.05); transition: 0.3s; }
+        .gift-box-wrapper:hover { border-color: var(--sea); }
+        
+        .box-icon { font-size: 85px; cursor: pointer; transition: 0.5s; display: inline-block; animation: bounce 2s infinite; }
+        @keyframes bounce { 0%, 20%, 50%, 80%, 100% {transform: translateY(0);} 40% {transform: translateY(-20px);} }
+
+        .hidden-gift { display: none; margin-top: 25px; animation: zoomIn 0.5s ease-out; }
+        @keyframes zoomIn { from { transform: scale(0.5); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+        .iphone-display { background: var(--apple); color: white; padding: 25px; border-radius: 25px; position: relative; border: 1px solid #333; }
+        .congrats-card { 
+            background: var(--gold); color: black; padding: 15px; border-radius: 15px; 
+            margin-top: 15px; font-family: 'Dancing Script', cursive; font-size: 1.4rem;
+            box-shadow: 0 5px 15px rgba(212,175,55,0.4); border: 2px solid #fff;
         }
-        h2 { color: var(--sea); font-size: 2rem; margin-bottom: 20px; }
 
-        /* Gift Box Section */
-        .gift-wrapper { background: white; padding: 50px; border-radius: 30px; text-align: center; border: 2px dashed var(--sea); position: relative; }
-        .gift-box { 
-            font-size: 100px; cursor: pointer; transition: 0.5s; display: inline-block; 
-            filter: drop-shadow(0 10px 15px rgba(0,0,0,0.2)); animation: bounce 2s infinite;
-        }
-        @keyframes bounce { 0%, 20%, 50%, 80%, 100% {transform: translateY(0);} 40% {transform: translateY(-30px);} 60% {transform: translateY(-15px);} }
-        .gift-box:hover { transform: scale(1.3) rotate(10deg); }
+        .item-list { text-align: left; background: #f4fdfd; padding: 20px; border-radius: 15px; border-left: 5px solid var(--teal); }
 
-        #gift-content { 
-            display: none; background: #f9ffff; border: 2px solid var(--teal); 
-            padding: 30px; border-radius: 20px; margin-top: 30px; animation: slideUp 0.8s ease-out; 
-        }
-        @keyframes slideUp { from { opacity: 0; transform: translateY(50px); } to { opacity: 1; transform: translateY(0); } }
-
-        .item { background: white; margin: 15px 0; padding: 20px; border-radius: 15px; border-right: 5px solid var(--teal); box-shadow: 0 4px 10px rgba(0,0,0,0.05); text-align: left; display: flex; align-items: center; gap: 15px; }
-        .item span { font-size: 2rem; }
-
-        footer { text-align: center; padding: 40px; color: #777; font-size: 0.9rem; }
+        footer { text-align: center; padding: 40px; color: #888; font-size: 0.8rem; }
     </style>
 </head>
 <body>
 
-    <audio id="ocean-sound" loop>
-        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
-    </audio>
+    <audio id="ocean-sound" loop><source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg"></audio>
     <button class="music-control" onclick="toggleMusic()">🎵</button>
 
     <div class="hero">
         <h1>Zuhuur</h1>
-        <p>Expert Healthcare | Island Soul</p>
+        <p>Medical Excellence | Gifted Soul</p>
     </div>
 
     <div class="container">
-        <div class="medical-card">
-            <h2>🩺 Shahaadooyinka & Xirfadda</h2>
-            <p style="font-size: 1.1rem; color: #555;">Zuhuur waa xirfadle u taagan daryeelka nolosha, badbaadinta hooyada iyo dhallaanka, iyo faafinta tallaalka caafimaadka ee bulshada.</p>
-            <div style="display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; margin-top: 25px;">
-                <span style="background: #e0f7fa; color: #006064; padding: 10px 20px; border-radius: 50px; font-weight: bold; border: 1px solid #b2ebf2;">💉 Tallaalka Specialists</span>
-                <span style="background: #f1f8e9; color: #33691e; padding: 10px 20px; border-radius: 50px; font-weight: bold; border: 1px solid #dcedc8;">🩹 Clinical Nursing</span>
-                <span style="background: #fff8e1; color: #ff6f00; padding: 10px 20px; border-radius: 50px; font-weight: bold; border: 1px solid #ffecb3;">❤️ Maternal Care</span>
+        <div class="gifts-grid">
+            <div class="gift-box-wrapper">
+                <h3 style="color:var(--teal);">Medical Gear 🩺</h3>
+                <div class="box-icon" onclick="reveal('medical')">🎁</div>
+                <div id="medical-gift" class="hidden-gift">
+                    <div class="item-list">
+                        <p>💉 <b>Vaccination Pro Kit</b></p>
+                        <p>🩺 <b>Smart Stethoscope</b></p>
+                        <p>🩹 <b>Island Clinic Support</b></p>
+                    </div>
+                </div>
             </div>
-        </div>
 
-        <div class="gift-wrapper">
-            <h2 style="font-family: 'Dancing Script', cursive; font-size: 2.5rem;">Hadiyadda Upthirahmaan 🎁</h2>
-            <p>Zuhuur, fur sanduuqa si aad u aragto agabka laguugu talagalay...</p>
-            <div class="gift-box" onclick="revealGift()">🎁</div>
-
-            <div id="gift-content">
-                <h3 style="color: var(--teal); font-size: 1.5rem;">Agabka Badbaadinta Nolosha 🏥</h3>
-                <div class="item"><span>💉</span> <div><strong>Tallaalka (Vaccination Kit):</strong> Si gaar ah loogu talagalay in lagu badbaadiyo jiilka cusub.</div></div>
-                <div class="item"><span>🩺</span> <div><strong>Stethoscope:</strong> Qalabka lagu dhageysto garaaca wadnaha iyo naxariista ku jirta.</div></div>
-                <div class="item"><span>🩹</span> <div><strong>Medical Support:</strong> Agabka gurmadka degdega ah ee jasiiradda iyo magaalada.</div></div>
-                <div class="item"><span>💊</span> <div><strong>Aqoonta Caafimaadka:</strong> Hadiyadda ugu weyn ee aad bulshada siiso waa aqoontaada.</div></div>
-                <p style="font-style: italic; color: #555; margin-top: 20px; border-top: 1px solid #eee; padding-top: 10px;">"Waxaa si kal iyo laab ah kuugu dhisay Upthirahmaan."</p>
+            <div class="gift-box-wrapper">
+                <h3 style="color:var(--apple);">Surprise Tech 📱</h3>
+                <div class="box-icon" style="animation-delay: 0.5s;" onclick="reveal('iphone')">🎁</div>
+                <div id="iphone-gift" class="hidden-gift">
+                    <div class="iphone-display">
+                        <span style="font-size: 60px;">📱</span>
+                        <h4 style="margin:10px 0;">iPhone 17 Pro Max</h4>
+                        <p style="font-size: 0.7rem; color: #aaa;">Titanium Black | 1TB Storage</p>
+                        <div class="congrats-card">
+                            Hambalyo Zuhuur! <br>
+                            Gift from <b>Upthirahmaan</b>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
     <footer>
-        © 2025 Zuhuur Medical Portfolio | Crafted by Upthirahmaan
+        © 2025 Zuhuur Medical Portfolio | Created with Care by Upthirahmaan
     </footer>
 
     <script>
         function toggleMusic() {
-            var audio = document.getElementById('ocean-sound');
-            if (audio.paused) {
-                audio.play();
-            } else {
-                audio.pause();
-            }
+            var a = document.getElementById('ocean-sound');
+            a.paused ? a.play() : a.pause();
         }
-
-        function revealGift() {
-            var content = document.getElementById('gift-content');
-            if (content.style.display === 'none' || content.style.display === '') {
-                content.style.display = 'block';
-                content.scrollIntoView({ behavior: 'smooth' });
-            } else {
-                content.style.display = 'none';
-            }
+        function reveal(id) {
+            var e = document.getElementById(id + '-gift');
+            e.style.display = (e.style.display === 'block') ? 'none' : 'block';
         }
     </script>
 </body>
