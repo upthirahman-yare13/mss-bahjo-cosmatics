@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dr. Zuhuur | PhD Researcher & Super AI Bot</title>
-    <meta name="description" content="Dr. Zuhuur PhD Medical Center - Qabso ballan, kala hadal AI-ga caafimaadka, kuna bixi lacagta EVC Plus.">
+    <title>Dr. Zuhuur | PhD Medical Researcher & AI Bot</title>
+    <meta name="description" content="Dr. Zuhuur PhD Medical Center - Qabso ballan online ah, kala hadal AI-ga caafimaadka, kuna bixi lacagta EVC Plus.">
     
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     <style>
-        :root { --navy: #0a192f; --gold: #c5a059; --white: #ffffff; --grey: #f1f5f9; --green: #25d366; }
+        :root { --navy: #0a192f; --gold: #c5a059; --white: #ffffff; --green: #25d366; --soft-grey: #f8fafc; }
         body { font-family: 'Plus Jakarta Sans', sans-serif; margin: 0; background: var(--white); color: var(--navy); scroll-behavior: smooth; overflow-x: hidden; }
         
         nav { padding: 15px 8%; background: var(--navy); color: white; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; }
@@ -22,129 +22,63 @@
         .btn-tiktok { background: #000; color: white; }
         .btn-wa { background: var(--green); color: white; }
 
-        /* Review Section */
-        .reviews-container { padding: 60px 8%; background: #f8fafc; text-align: center; }
-        .reviews-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-top: 30px; }
-        .review-card { background: white; padding: 25px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border-left: 5px solid var(--gold); text-align: left; }
-        .stars { color: #facc15; margin-bottom: 10px; font-size: 1.2rem; }
-        .review-text { font-style: italic; color: #475569; line-height: 1.6; }
-        .reviewer-name { font-weight: 800; margin-top: 15px; display: block; color: var(--navy); }
-
-        /* Payment Section */
-        .payment-box { padding: 50px 8%; background: #fff; text-align: center; }
-        .payment-card { background: #f9fbff; border: 2px dashed var(--gold); padding: 30px; border-radius: 20px; max-width: 500px; margin: 0 auto; }
-        .payment-methods { display: flex; justify-content: center; gap: 20px; margin-top: 20px; }
-        .pay-icon { width: 80px; height: auto; border-radius: 10px; cursor: pointer; transition: 0.3s; }
-
-        /* Gallery */
-        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; padding: 40px 8%; }
-        .gallery-item { border-radius: 20px; overflow: hidden; background: white; box-shadow: 0 5px 15px rgba(0,0,0,0.05); border: 1px solid #eee; }
-        .gallery-item img { width: 100%; height: 220px; object-fit: cover; }
+        /* Gallery/Services */
+        .section-title { font-family: 'Playfair Display', serif; text-align: center; margin: 40px 0; font-size: 2rem; }
+        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; padding: 0 8% 40px; }
+        .gallery-item { border-radius: 20px; overflow: hidden; background: white; box-shadow: 0 10px 20px rgba(0,0,0,0.05); border: 1px solid #eee; }
+        .gallery-item img { width: 100%; height: 250px; object-fit: cover; }
         .gallery-item .desc { padding: 15px; text-align: center; font-weight: bold; background: var(--navy); color: white; }
 
-        /* Calendar Styling */
-        .booking-box { padding: 40px 8%; background: white; text-align: center; }
-        .calendar-input { padding: 15px; border-radius: 12px; border: 2px solid var(--gold); font-size: 1rem; font-family: inherit; margin-bottom: 20px; width: 100%; max-width: 300px; }
+        /* Payment Section */
+        .payment-box { padding: 50px 8%; background: var(--soft-grey); text-align: center; border-radius: 40px; margin: 20px 8%; }
+        .payment-card { background: white; border: 2px dashed var(--gold); padding: 30px; border-radius: 20px; max-width: 500px; margin: 0 auto; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
 
-        /* Chatbot Super AI */
-        #chatbot-launcher { position: fixed; bottom: 30px; left: 30px; width: 70px; height: 70px; background: var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; cursor: pointer; z-index: 10000; font-size: 32px; box-shadow: 0 10px 30px rgba(197, 160, 89, 0.4); border: 3px solid white; }
-        #chat-window { position: fixed; bottom: 110px; left: 30px; width: 350px; background: white; border-radius: 25px; box-shadow: 0 20px 60px rgba(0,0,0,0.2); display: none; flex-direction: column; z-index: 10000; border: 1px solid #eee; overflow: hidden; }
+        /* Booking/Calendar */
+        .booking-box { padding: 60px 8%; text-align: center; }
+        .calendar-input { padding: 15px; border-radius: 12px; border: 2px solid var(--gold); font-size: 1rem; width: 100%; max-width: 300px; margin-bottom: 20px; }
+
+        /* Map Section - Zaytuun Dabaqyada */
+        .location-box { padding: 60px 8%; text-align: center; background: #fff; }
+        .map-wrapper { width: 100%; height: 450px; border-radius: 25px; overflow: hidden; border: 4px solid var(--gold); margin-top: 20px; }
+
+        /* Chatbot */
+        #chatbot-launcher { position: fixed; bottom: 30px; left: 30px; width: 70px; height: 70px; background: var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; cursor: pointer; z-index: 10000; font-size: 32px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+        #chat-window { position: fixed; bottom: 110px; left: 30px; width: 350px; height: 500px; background: white; border-radius: 25px; box-shadow: 0 20px 60px rgba(0,0,0,0.2); display: none; flex-direction: column; z-index: 10000; border: 1px solid #eee; overflow: hidden; }
         .chat-header { background: var(--navy); color: white; padding: 18px; font-weight: bold; display: flex; justify-content: space-between; border-bottom: 3px solid var(--gold); }
-        .chat-body { height: 420px; padding: 15px; overflow-y: auto; font-size: 0.88rem; background: #f9fbff; display: flex; flex-direction: column; gap: 10px; }
-        .chat-input-area { padding: 15px; border-top: 1px solid #eee; display: flex; gap: 10px; background: white; }
-        .chat-input-area input { flex: 1; padding: 12px; border: 1.5px solid #e2e8f0; border-radius: 25px; outline: none; }
-        
-        .msg { padding: 12px 16px; border-radius: 18px; max-width: 85%; line-height: 1.5; }
-        .bot-msg { background: white; color: var(--navy); align-self: flex-start; border: 1px solid #e2e8f0; }
+        .chat-body { flex: 1; padding: 15px; overflow-y: auto; background: #f9fbff; display: flex; flex-direction: column; gap: 12px; }
+        .chat-input-area { padding: 15px; display: flex; gap: 10px; border-top: 1px solid #eee; background: white; }
+        .chat-input-area input { flex: 1; padding: 12px; border-radius: 25px; border: 1px solid #ddd; outline: none; }
+        .msg { padding: 12px 16px; border-radius: 18px; max-width: 85%; font-size: 0.9rem; line-height: 1.5; }
+        .bot-msg { background: white; border: 1px solid #eee; align-self: flex-start; }
         .user-msg { background: var(--navy); color: white; align-self: flex-end; }
-        
-        .chat-form { display: flex; flex-direction: column; gap: 8px; margin-top: 10px; }
-        .chat-form input { padding: 10px; border-radius: 10px; border: 1px solid #ddd; }
-        .chat-form button { background: var(--gold); color: white; border: none; padding: 12px; border-radius: 10px; cursor: pointer; font-weight: bold; }
 
-        .map-box { width: 100%; height: 400px; border-radius: 25px; overflow: hidden; border: 3px solid var(--gold); margin-top: 20px; }
-
-        footer { padding: 40px; text-align: center; color: #94a3b8; font-size: 0.8rem; border-top: 1px solid #eee; }
+        footer { padding: 40px; text-align: center; background: var(--soft-grey); color: #64748b; font-size: 0.8rem; border-top: 1px solid #eee; }
+        .designer-tag { color: var(--gold); font-weight: 800; display: block; margin-top: 5px; text-decoration: none; }
     </style>
 </head>
 <body>
 
-    <div id="chatbot-launcher" onclick="toggleChat()">🩺</div>
-    <div id="chat-window">
-        <div class="chat-header"><span>Dr. Zuhuur Medical AI</span><span onclick="toggleChat()" style="cursor:pointer">×</span></div>
-        <div class="chat-body" id="chat-body">
-            <div id="onboarding" class="msg bot-msg">
-                <b>Asc! Waxaan ahay AI-ga caqliga badan ee Dr. Zuhuur.</b><br>
-                Geli magacaaga iyo lambarkaaga si aan u bilowno:
-                <div class="chat-form">
-                    <input type="text" id="u-name" placeholder="Magacaaga">
-                    <input type="number" id="u-phone" placeholder="Lambarka WhatsApp">
-                    <button onclick="registerUser()">Diiwaangeli & Bilow</button>
-                </div>
-            </div>
-        </div>
-        <div class="chat-input-area" id="input-area" style="display:none;">
-            <input type="text" id="chat-input" placeholder="Weydii wax kasta oo caafimaad..." onkeypress="if(event.key==='Enter') processChat()">
-        </div>
-    </div>
-
     <nav><div class="logo">DR. ZUHUUR</div></nav>
 
     <section class="hero">
-        <img src="https://images.unsplash.com/photo-1594824476967-48c8b964273f?q=80&w=500" alt="Dr. Zuhuur" class="hero-img">
-        <h1>PhD Medical Researcher</h1>
-        <p>Expert diagnosis, personalized treatment, and clinical research in Mogadishu.</p>
+        <img src="https://images.unsplash.com/photo-1594824476967-48c8b964273f?q=80&w=500" class="hero-img" alt="Dr Zuhuur">
+        <h1>PhD Clinical Researcher</h1>
+        <p>Expert medical diagnosis and AI-powered healthcare services.</p>
         <div class="cta-container">
-            <a href="https://vm.tiktok.com/ZMD2GHmXd/" class="btn btn-tiktok" target="_blank">TikTok Profile</a>
-            <a href="https://wa.me/252617911816" class="btn btn-wa" target="_blank">WhatsApp Direct</a>
+            <a href="https://vm.tiktok.com/ZMD2GHmXd/" class="btn btn-tiktok">TikTok Profile</a>
+            <a href="https://wa.me/252617911816" class="btn btn-wa">WhatsApp Direct</a>
         </div>
     </section>
 
-    <section class="payment-box" id="payment">
-        <h2 style="font-family:'Playfair Display';">Bixi Lacagta Ballanta</h2>
-        <p>Si ballantaadu u xaqiijisanto, fadlan horay u bixi lacagta la-talinta ($50).</p>
-        <div class="payment-card">
-            <p>Isticmaal EVC Plus (Hormuud):</p>
-            <div class="payment-methods">
-                <div onclick="alert('Lambarka lacagta lagu dirayo waa: 617911816')" style="cursor:pointer;">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/b/b8/Hormuud_Telecom_Logo.png" alt="EVC Plus" class="pay-icon" style="height:50px; width:auto;">
-                </div>
-            </div>
-            <p style="font-weight:bold; color:var(--gold); margin-top:15px;">Muge: 617911816</p>
-        </div>
-    </section>
-
-    <section class="booking-box">
-        <h2 style="font-family:'Playfair Display';">Qabso Ballan (Calendar)</h2>
-        <p>Dooro taariikhda aad rabo inaad timaado xafiiska:</p>
-        <input type="date" id="appointment-date" class="calendar-input"> <br>
-        <button onclick="confirmAppointment()" class="btn btn-wa" style="margin: 0 auto; border:none; cursor:pointer;">Xaqiiji Ballanta</button>
-    </section>
-
-    <section class="reviews-container">
-        <h2 style="font-family:'Playfair Display';">Reviews (80+)</h2>
-        <div class="reviews-grid">
-            <div class="review-card">
-                <div class="stars">★★★★★</div>
-                <p class="review-text">"Dr. Zuhuur waa dhakhtarad aad u xirfad sarreysa. Nidaamka ballan qabsiga waa mid aad u fudud."</p>
-                <span class="reviewer-name">- Sahra Ahmed</span>
-            </div>
-            <div class="review-card">
-                <div class="stars">★★★★★</div>
-                <p class="review-text">"Aad ayaan ugu qancay baaritaanka dhabarka. PhD heerkeedu sarreeyo ayaan ugu imid."</p>
-                <span class="reviewer-name">- Mohamed Ali</span>
-            </div>
-        </div>
-    </section>
-
+    <h2 class="section-title">Xafiiska & Adeegyada</h2>
     <section class="gallery-grid">
         <div class="gallery-item">
-            <img src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?q=80&w=500" alt="Xafiiska">
+            <img src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?q=80&w=500" alt="VIP">
             <div class="desc">Xafiiska VIP-da</div>
         </div>
         <div class="gallery-item">
             <img src="https://images.unsplash.com/photo-1581594632702-fbdc51b2763b?q=80&w=500" alt="Qalabka">
-            <div class="desc">Qalabka Baaritaanka</div>
+            <div class="desc">Qalabka Baaritaanka Casriga ah</div>
         </div>
         <div class="gallery-item">
             <img src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?q=80&w=500" alt="Daryeelka">
@@ -152,28 +86,58 @@
         </div>
     </section>
 
-    <div style="padding: 40px 8%; background: #f8fafc;">
-        <h2 style="text-align:center; font-family:'Playfair Display';">Daru-salaam, Mogadishu</h2>
-        <div class="map-box">
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.26!2d45.3!3d2.0!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMsKwMDAnMDAuMCJOIDQ1wrAxOCcwMC4wIkU!5e0!3m2!1sen!2sso!4v1625000000000!5m2!1sen!2sso" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+    <section class="payment-box">
+        <h2 style="font-family:'Playfair Display';">Bixi Lacagta Ballanta</h2>
+        <div class="payment-card">
+            <p>Si ballantaadu u xaqiijisanto, bixi lacagta la-talinta ($50)</p>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/b/b8/Hormuud_Telecom_Logo.png" style="height:40px; margin: 10px 0;">
+            <p style="font-size: 1.2rem; font-weight: 800; color: var(--gold);">EVC Plus: 617911816</p>
+            <small>*Markaad lacagta dirto, AI-ga hoose u sheeg.</small>
+        </div>
+    </section>
+
+    <section class="booking-box">
+        <h2 style="font-family:'Playfair Display';">Qabso Ballan Online ah</h2>
+        <input type="date" id="app-date" class="calendar-input"> <br>
+        <button onclick="confirmBooking()" style="background:var(--navy); color:white; border:none; padding:15px 40px; border-radius:50px; font-weight:bold; cursor:pointer;">Xaqiiji Ballanta</button>
+    </section>
+
+    <section class="location-box">
+        <h2 style="font-family:'Playfair Display';">Halkee ku Naallaa?</h2>
+        <p><b>Daru-salaam, Xafadda Zaytuun (Dabaqyada)</b>, Mogadishu, Somalia.</p>
+        <div class="map-wrapper">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.7046!2d45.2894!3d2.0744!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3d5843b0!2sDaru%20Salaam%20City!5e0!3m2!1sen!2sso!4v1700000000000" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+        </div>
+    </section>
+
+    <div id="chatbot-launcher" onclick="toggleChat()">🩺</div>
+    <div id="chat-window">
+        <div class="chat-header"><span>Dr. Zuhuur Medical AI</span><span onclick="toggleChat()" style="cursor:pointer">×</span></div>
+        <div class="chat-body" id="chat-body">
+            <div class="msg bot-msg">Asc! Waxaan ahay xog-hayaha caqliga badan ee Dr. Zuhuur. Geli magacaaga si aan u bilowno:</div>
+            <div id="reg-area" style="padding:10px; display:flex; flex-direction:column; gap:8px;">
+                <input type="text" id="u-name" placeholder="Magacaaga..." style="padding:10px; border-radius:10px; border:1px solid #ddd;">
+                <button onclick="startChat()" style="background:var(--gold); color:white; border:none; padding:10px; border-radius:10px; cursor:pointer; font-weight:bold;">Bilow AI</button>
+            </div>
+        </div>
+        <div class="chat-input-area" id="input-area" style="display:none;">
+            <input type="text" id="chat-input" placeholder="Qor su'aal kasta..." onkeypress="if(event.key==='Enter') processChat()">
         </div>
     </div>
 
-    <footer>© 2025 DR. ZUHUUR | DESIGNED BY UPTHIRAHMAAN</footer>
+    <footer>
+        <p>© 2025 DR. ZUHUUR | PhD MEDICAL RESEARCHER</p>
+        <a href="#" class="designer-tag">DESIGNED BY UPTHIRAHMAAN</a>
+    </footer>
 
     <script>
-        let currentUser = { name: "", phone: "" };
-        
-        const megaDatabase = {
-            "dhabar": "Dhabar xanuunka waxaa keeni kara fadhiga badan ama neerfaha. Dr. Zuhuur waxay bixisaa Physiotherapy. La-talin: $50.",
-            "madax": "Madax xanuunka joogtada ah waxaa laga yaabaa inay keento dhiig-kar ama indhaha. Fadlan ballan qabso si laguu baaro.",
-            "calool": "Calool xanuunka haddii uu leeyahay laab-jeex, waa Gaastariko. Baaritaanka H-Pylori waa $15.",
-            "wadne": "Wadne xanuunka (Chest pain) waa khatar, fadlan si degdeg ah u imaan xafiiska Daru-salaam si EKG lagaaga qaado.",
-            "sokor": "Sokorta (Diabetes) waxay u baahan tahay cunto habaysan. Baaritaanka macaanka waa $5.",
-            "qiimaha": "La-talin: $50 | Baaritaan guud: $30. Lacagta ku dir EVC: 617911816.",
-            "lacag": "Markaad dirto lacagta, fadlan sawir (Screenshot) ka qaado oo u dir WhatsApp-ka Dr. Zuhuur.",
-            "asc": "Wacalaykum Salaam! Sideen kuu caawin karaa maanta?",
-            "mahadsanid": "Adaa mudan, caafimaad taam ah ayaan kuu rajaynaynaa!"
+        let userName = "";
+        const knowledge = {
+            "asc": "Wacalaykum Salaam! Sideen kuu caawin karaa?",
+            "qiimaha": "La-talin: $50. Baaritaan guud: $30. EVC: 617911816.",
+            "location": "Daru-salaam, Xafadda Zaytuun (Dabaqyada).",
+            "dhabar": "Dhabar xanuunka waxaa daaweeya Dr. Zuhuur. Fadlan qabso ballan.",
+            "lacag": "Markaad dirto $50 (EVC: 617911816), sawirka noo soo dir WhatsApp."
         };
 
         function toggleChat() {
@@ -181,14 +145,13 @@
             win.style.display = (win.style.display === 'flex') ? 'none' : 'flex';
         }
 
-        function registerUser() {
+        function startChat() {
             let n = document.getElementById('u-name').value;
-            let p = document.getElementById('u-phone').value;
-            if(!n || !p) return alert("Geli xogtaada");
-            currentUser.name = n; currentUser.phone = p;
-            document.getElementById('chat-body').innerHTML += `<div class="msg bot-msg">Masha'Allah <b>${n}</b>, hadda i weydii su'aal kasta oo caafimaad?</div>`;
-            document.getElementById('onboarding').style.display = 'none';
+            if(!n) return alert("Fadlan magaca geli");
+            userName = n;
+            document.getElementById('reg-area').style.display = 'none';
             document.getElementById('input-area').style.display = 'flex';
+            document.getElementById('chat-body').innerHTML += `<div class="msg bot-msg">Mahadsanid <b>${n}</b>! Maxaan kaa caawiyaa? (Cudurada, Qiimaha, ama Location?)</div>`;
         }
 
         function processChat() {
@@ -198,30 +161,22 @@
             if(!text) return;
 
             body.innerHTML += `<div class="msg user-msg">${input.value}</div>`;
+            let reply = "Su'aashaas Dr. Zuhuur ayaa si toos ah ugaaga jawaabi doonta WhatsApp-ka.";
             
-            let reply = "Su'aashaas waa mid muhiim ah. Dr. Zuhuur waxay kugula talinaysaa inaad timaado xafiiska si baaritaan dhab ah laguugu sameeyo.";
-            
-            for(let key in megaDatabase) {
-                if(text.includes(key)) { reply = megaDatabase[key]; break; }
-            }
+            for(let key in knowledge) { if(text.includes(key)) { reply = knowledge[key]; break; } }
 
             setTimeout(() => {
                 body.innerHTML += `<div class="msg bot-msg">${reply}</div>`;
-                body.innerHTML += `<button onclick="sendToWA('${text}')" style="background:#25d366; color:white; border:none; padding:10px; border-radius:10px; cursor:pointer; margin:5px; font-weight:bold;">U dir WhatsApp Dr. Zuhuur</button>`;
+                body.innerHTML += `<button onclick="window.open('https://wa.me/252617911816?text=Asc Dr. Zuhuur, waxaan ahay ${userName}. Su'aasheydu waa: ${text}')" style="background:#25d366; color:white; border:none; padding:8px; border-radius:10px; cursor:pointer; margin-top:5px; font-size:0.8rem;">U dir WhatsApp</button>`;
                 body.scrollTop = body.scrollHeight;
-            }, 600);
+            }, 500);
             input.value = "";
         }
 
-        function confirmAppointment() {
-            let d = document.getElementById('appointment-date').value;
-            if(!d) return alert("Fadlan dooro taariikh");
-            window.open(`https://wa.me/252617911816?text=Asc Dr. Zuhuur, waxaan rabaa ballan taariikhda: ${d}. Waxaan horay ugu soo bixiyey lacagtii la-talinta websaytka.`, '_blank');
-        }
-
-        function sendToWA(problem) {
-            let msg = `Asc Dr. Zuhuur, waxaan ahay ${currentUser.name} (${currentUser.phone}). Waxaan websaytkaaga ka raadiyey: ${problem}`;
-            window.open(`https://wa.me/252617911816?text=${encodeURIComponent(msg)}`, '_blank');
+        function confirmBooking() {
+            let d = document.getElementById('app-date').value;
+            if(!d) return alert("Dooro taariikh");
+            window.open(`https://wa.me/252617911816?text=Asc Dr. Zuhuur, waxaan rabaa ballan: ${d}. Waxaan ahay ${userName}.`, '_blank');
         }
     </script>
 </body>
