@@ -3,130 +3,111 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KOOSHIN AI | Snow Filter HD</title>
+    <title>KOOSHIN AI | Record & Snow</title>
     <style>
-        body {
-            margin: 0; padding: 0;
-            background: #000;
-            display: flex; flex-direction: column; align-items: center;
-            font-family: 'Segoe UI', sans-serif;
-            color: white;
-            overflow: hidden;
-        }
+        body { margin: 0; background: #000; color: white; font-family: sans-serif; overflow: hidden; display: flex; flex-direction: column; align-items: center; }
+        
+        /* Camera Area */
+        .container { position: relative; width: 100%; height: 75vh; background: #111; border-bottom: 2px solid #00f2ff; }
+        video { width: 100%; height: 100%; object-fit: cover; transform: scaleX(-1); filter: brightness(1.1) saturate(1.2); }
 
-        /* 1. Camera Container (Half Mode) */
-        .cam-wrapper {
-            position: relative;
-            width: 100%;
-            height: 70vh; /* Waxaan ka dhigay barkii sare ee shaashadda */
-            overflow: hidden;
-            background: #111;
-            border-bottom: 3px solid #00f2ff;
-        }
+        /* Snow Effect */
+        .snow { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 10; }
+        .flake { position: absolute; top: -10px; background: white; border-radius: 50%; opacity: 0.8; animation: fall linear infinite; }
+        @keyframes fall { to { transform: translateY(75vh); } }
 
-        #webcam {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transform: scaleX(-1);
-            /* iPhone Vivid & Soft Filter */
-            filter: brightness(1.1) contrast(1.05) saturate(1.2) blur(0px);
-        }
-
-        /* 2. Snow Animation Effect */
-        .snow-overlay {
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            pointer-events: none;
-            z-index: 10;
-        }
-
-        .snowflake {
-            position: absolute;
-            top: -10px;
-            background: white;
-            border-radius: 50%;
-            opacity: 0.8;
-            animation: fall linear infinite;
-        }
-
-        @keyframes fall {
-            to { transform: translateY(70vh); }
-        }
-
-        /* 3. Controls Layout */
-        .controls {
-            height: 30vh;
-            width: 100%;
-            background: #050505;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .btn-record {
-            width: 70px; height: 70px;
-            background: red;
-            border: 4px solid white;
-            border-radius: 50%;
-            cursor: pointer;
-            box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
-        }
-
-        .btn-record:active { transform: scale(0.9); }
-
-        .title { font-size: 14px; letter-spacing: 2px; color: #00f2ff; margin-bottom: 15px; }
+        /* Controls */
+        .footer { height: 25vh; width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; background: #050505; }
+        .rec-btn { width: 80px; height: 80px; background: white; border: 5px solid #333; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.3s; }
+        .rec-btn.active { background: red; animation: pulse 1s infinite; }
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
+        .inner-circle { width: 30px; height: 30px; background: red; border-radius: 50%; }
     </style>
 </head>
 <body>
 
-    <div class="cam-wrapper">
-        <video id="webcam" autoplay playsinline></video>
-        <div class="snow-overlay" id="snow-box"></div>
+    <div class="container">
+        <video id="webcam" autoplay playsinline muted></video>
+        <div class="snow" id="snowBox"></div>
     </div>
 
-    <div class="controls">
-        <div class="title">IPHONE 17 PRO | SNOW MODE</div>
-        <p style="font-size: 12px; opacity: 0.6;">Duubista bilow si aad muqaal baraf leh u hesho</p>
-        <div class="btn-record" id="recordBtn"></div>
+    <div class="footer">
+        <p id="status" style="color: #00f2ff; margin-bottom: 10px;">RIIX SI AAD U DUUBTO</p>
+        <div class="rec-btn" id="recBtn" onclick="toggleRecording()">
+            <div class="inner-circle"></div>
+        </div>
     </div>
 
     <script>
-        // Start HD Camera
-        async function startCam() {
+        let mediaRecorder;
+        let recordedChunks = [];
+        const videoElement = document.getElementById('webcam');
+
+        // 1. Bilow Kamaradda
+        async function startApp() {
             try {
                 const stream = await navigator.mediaDevices.getUserMedia({ 
-                    video: { facingMode: "user", width: 1280, height: 720 } 
+                    video: { facingMode: "user", width: 1280, height: 720 },
+                    audio: true 
                 });
-                document.getElementById('webcam').srcObject = stream;
+                videoElement.srcObject = stream;
+                createSnow();
             } catch (err) {
-                alert("Fadlan ogolow kamaradda si barafka u aragto!");
+                document.getElementById('status').innerText = "Cillad: Fadlan ogolow Kamaradda!";
+                console.error(err);
             }
         }
 
-        // Create Snowflakes
+        // 2. Barafka Samee
         function createSnow() {
-            const snowBox = document.getElementById('snow-box');
-            for (let i = 0; i < 50; i++) {
+            const snowBox = document.getElementById('snowBox');
+            for (let i = 0; i < 40; i++) {
                 let flake = document.createElement('div');
-                flake.className = 'snowflake';
-                
-                let size = Math.random() * 5 + 2 + 'px';
-                flake.style.width = size;
-                flake.style.height = size;
-                
+                flake.className = 'flake';
+                let size = Math.random() * 4 + 2 + 'px';
+                flake.style.width = size; flake.style.height = size;
                 flake.style.left = Math.random() * 100 + 'vw';
                 flake.style.animationDuration = Math.random() * 3 + 2 + 's';
                 flake.style.animationDelay = Math.random() * 5 + 's';
-                
                 snowBox.appendChild(flake);
             }
         }
 
-        startCam();
-        createSnow();
+        // 3. Duubista iyo Dagsashada
+        function toggleRecording() {
+            const btn = document.getElementById('recBtn');
+            const status = document.getElementById('status');
+
+            if (!mediaRecorder || mediaRecorder.state === "inactive") {
+                // Bilow Duubista
+                recordedChunks = [];
+                const stream = videoElement.srcObject;
+                mediaRecorder = new MediaRecorder(stream);
+                
+                mediaRecorder.ondataavailable = (e) => { if (e.data.size > 0) recordedChunks.push(e.data); };
+                
+                mediaRecorder.onstop = () => {
+                    const blob = new Blob(recordedChunks, { type: 'video/webm' });
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = 'Kooshin_AI_Video.webm'; // Magaca loo dagsanayo
+                    a.click();
+                    status.innerText = "MUQAALKA WAA LA DAGSADAY!";
+                };
+
+                mediaRecorder.start();
+                btn.classList.add('active');
+                status.innerText = "WAA LA DUUBAYAA...";
+            } else {
+                // Jooji Duubista
+                mediaRecorder.stop();
+                btn.classList.remove('active');
+                status.innerText = "DIYAARINAYAA...";
+            }
+        }
+
+        startApp();
     </script>
 </body>
 </html>
