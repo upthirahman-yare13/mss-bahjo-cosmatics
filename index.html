@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KOOSHIN HUB | Qur'aan & Tasbiix</title>
+    <title>KOOSHIN HUB | Qur'aan, Tasbiix & Xadiis</title>
     <link href="https://fonts.googleapis.com/css2?family=Amiri&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
@@ -12,126 +12,147 @@
             font-family: 'Montserrat', sans-serif; 
             background: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.85)), 
                         url('https://images.unsplash.com/photo-1590075865003-e48267df557d?auto=format&fit=crop&w=1920&q=80');
-            background-size: cover;
-            background-attachment: fixed;
-            background-position: center;
-            color: white; 
-            margin: 0; 
-            padding-bottom: 90px; 
+            background-size: cover; background-attachment: fixed; color: white; margin: 0; padding-bottom: 90px; 
         }
         
         header { 
-            background: rgba(6, 78, 59, 0.9); 
-            padding: 20px; 
-            text-align: center; 
-            border-bottom: 2px solid var(--gold); 
-            position: sticky; top: 0; z-index: 1000;
-            backdrop-filter: blur(10px);
+            background: rgba(6, 78, 59, 0.95); padding: 15px; text-align: center; border-bottom: 2px solid var(--gold); 
+            position: sticky; top: 0; z-index: 1000; backdrop-filter: blur(10px);
         }
-        .arabic-text { font-family: 'Amiri', serif; font-size: 1.4rem; color: var(--gold); line-height: 1.4; }
 
-        /* Tasbih Layout */
-        .tasbih-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 15px; }
+        .lang-bar { margin-top: 10px; display: flex; justify-content: center; gap: 8px; }
+        .lang-btn { background: rgba(255,255,255,0.1); border: 1px solid var(--gold); color: white; padding: 4px 10px; border-radius: 15px; cursor: pointer; font-size: 0.7rem; }
+        .lang-btn.active { background: var(--gold); color: black; font-weight: bold; }
+
+        /* Sections */
+        .page { display: none; animation: fadeIn 0.5s; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        /* Quran */
+        .quran-container { width: 100%; height: 82vh; border: none; background: white; border-radius: 20px 20px 0 0; }
+
+        /* Tasbih Grid - 12 Items */
+        .tasbih-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 15px; }
         .tasbih-card { 
-            background: rgba(255,255,255,0.07); 
-            padding: 15px; 
-            border-radius: 20px; 
-            border: 1px solid rgba(212, 175, 55, 0.2); 
-            text-align: center; 
-            backdrop-filter: blur(5px);
+            background: rgba(255,255,255,0.1); padding: 12px; border-radius: 15px; border: 1px solid rgba(212, 175, 55, 0.3); 
+            text-align: center; backdrop-filter: blur(5px);
         }
-        .count-num { font-size: 2.2rem; font-weight: bold; margin: 5px 0; color: white; text-shadow: 2px 2px 4px #000; }
-        .btn-tap { background: var(--gold); color: black; border: none; padding: 12px; border-radius: 12px; cursor: pointer; font-weight: bold; width: 100%; transition: 0.2s; }
-        .btn-tap:active { transform: scale(0.9); background: #b8962d; }
-
-        /* Quran Section */
-        .quran-container { width: 100%; height: 80vh; border: none; background: white; border-radius: 20px 20px 0 0; }
+        .count-num { font-size: 1.8rem; font-weight: bold; margin: 5px 0; color: var(--gold); }
+        .btn-tap { background: var(--gold); color: black; border: none; padding: 10px; border-radius: 10px; cursor: pointer; font-weight: bold; width: 100%; font-size: 0.8rem; }
+        .arabic-sm { font-family: 'Amiri', serif; font-size: 1.1rem; min-height: 40px; display: flex; align-items: center; justify-content: center; }
 
         /* Hadith List */
+        .hadith-container { padding: 10px; }
         .hadith-card { 
-            background: rgba(255,255,255,0.1); 
-            margin: 15px; 
-            padding: 20px; 
-            border-radius: 15px; 
-            border-right: 5px solid var(--gold); 
-            text-align: right; 
+            background: rgba(255,255,255,0.08); margin-bottom: 15px; padding: 18px; border-radius: 15px; 
+            border-right: 4px solid var(--gold); text-align: right; 
         }
-        .hadith-so { text-align: left; font-size: 0.95rem; color: #e2e8f0; margin-top: 12px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 10px; }
+        .hadith-so { text-align: left; font-size: 0.9rem; color: #cbd5e1; margin-top: 10px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 8px; font-style: italic; }
 
-        /* Navigation */
-        .nav-bar { position: fixed; bottom: 0; width: 100%; background: rgba(15, 23, 42, 0.95); display: flex; justify-content: space-around; padding: 15px 0; border-top: 1px solid var(--gold); z-index: 1000; backdrop-filter: blur(10px); }
+        /* Nav Bottom */
+        .nav-bar { position: fixed; bottom: 0; width: 100%; background: rgba(15, 23, 42, 0.98); display: flex; justify-content: space-around; padding: 12px 0; border-top: 1px solid var(--gold); z-index: 1000; }
         .nav-item { color: #94a3b8; font-size: 0.7rem; cursor: pointer; text-align: center; border: none; background: none; flex: 1; }
-        .nav-item i { display: block; font-size: 1.5rem; margin-bottom: 5px; }
-        .active { color: var(--gold); }
+        .active-nav { color: var(--gold); }
     </style>
 </head>
 <body>
 
 <header>
-    <h1 style="margin:0; font-family: 'Amiri'; letter-spacing: 2px;">KOOSHIN HUB</h1>
-    <p style="font-size: 0.75rem; color: var(--gold); margin: 5px 0 0;">QUR'AANKA | TAFSIIRKA | TASBIIXDA</p>
+    <h2 style="margin:0; font-family: 'Amiri'; letter-spacing: 1px;">KOOSHIN HUB</h2>
+    <div class="lang-bar">
+        <button class="lang-btn active" onclick="changeLang('so', this)">🇸🇴 SOMALI</button>
+        <button class="lang-btn" onclick="changeLang('ar', this)">🇸🇦 ARABIC</button>
+        <button class="lang-btn" onclick="changeLang('en', this)">🇺🇸 ENGLISH</button>
+    </div>
 </header>
 
-<div id="quran-sec" class="page">
+<div id="quran-sec" class="page" style="display:block;">
     <iframe id="quran-frame" class="quran-container" src="https://quran.com?translations=55"></iframe>
 </div>
 
-<div id="tasbih-sec" class="page" style="display:none;">
+<div id="tasbih-sec" class="page">
     <div class="tasbih-grid">
-        <div class="tasbih-card"><div class="arabic-text">سُبْحَانَ اللَّهِ</div><div class="count-num" id="n1">0</div><button class="btn-tap" onclick="count('n1')">TAABO</button></div>
-        <div class="tasbih-card"><div class="arabic-text">الْحَمْدُ لِلَّهِ</div><div class="count-num" id="n2">0</div><button class="btn-tap" onclick="count('n2')">TAABO</button></div>
-        <div class="tasbih-card"><div class="arabic-text">لَا إِلَهَ إِلَّا اللَّهُ</div><div class="count-num" id="n3">0</div><button class="btn-tap" onclick="count('n3')">TAABO</button></div>
-        <div class="tasbih-card"><div class="arabic-text">اللَّهُ أَكْبَرُ</div><div class="count-num" id="n4">0</div><button class="btn-tap" onclick="count('n4')">TAABO</button></div>
-        <div class="tasbih-card" style="grid-column: span 2;"><div class="arabic-text">لَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللَّهِ الْعَلِيِّ الْعَظِيمِ</div><div class="count-num" id="n5">0</div><button class="btn-tap" onclick="count('n5')">TAABO</button></div>
-        <div class="tasbih-card"><div class="arabic-text">أَسْتَغْفِرُ اللَّهَ</div><div class="count-num" id="n6">0</div><button class="btn-tap" onclick="count('n6')">TAABO</button></div>
-        <div class="tasbih-card"><div class="arabic-text">سُبْحَانَ اللَّهِ وَبِحَمْدِهِ</div><div class="count-num" id="n7">0</div><button class="btn-tap" onclick="count('n7')">TAABO</button></div>
-        <div class="tasbih-card"><div class="arabic-text">سُبْحَانَ اللَّهِ الْعَظِيمِ</div><div class="count-num" id="n8">0</div><button class="btn-tap" onclick="count('n8')">TAABO</button></div>
-        <div class="tasbih-card"><div class="arabic-text">اللَّهُمَّ صَلِّ عَلَى مُحَمَّدٍ</div><div class="count-num" id="n9">0</div><button class="btn-tap" onclick="count('n9')">TAABO</button></div>
-        <div class="tasbih-card"><div class="arabic-text">حَسْبُنَا اللَّهُ</div><div class="count-num" id="n10">0</div><button class="btn-tap" onclick="count('n10')">TAABO</button></div>
+        <div class="tasbih-card"><div class="arabic-sm">سُبْحَانَ اللَّهِ</div><div class="count-num" id="t1">0</div><button class="btn-tap" onclick="count('t1')">TAABO</button></div>
+        <div class="tasbih-card"><div class="arabic-sm">الْحَمْدُ لِلَّهِ</div><div class="count-num" id="t2">0</div><button class="btn-tap" onclick="count('t2')">TAABO</button></div>
+        <div class="tasbih-card"><div class="arabic-sm">لَا إِلَهَ إِلَّا اللَّهُ</div><div class="count-num" id="t3">0</div><button class="btn-tap" onclick="count('t3')">TAABO</button></div>
+        <div class="tasbih-card"><div class="arabic-sm">اللَّهُ أَكْبَرُ</div><div class="count-num" id="t4">0</div><button class="btn-tap" onclick="count('t4')">TAABO</button></div>
+        <div class="tasbih-card"><div class="arabic-sm">لَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللَّهِ</div><div class="count-num" id="t5">0</div><button class="btn-tap" onclick="count('t5')">TAABO</button></div>
+        <div class="tasbih-card"><div class="arabic-sm">أَسْتَغْفِرُ اللَّهَ</div><div class="count-num" id="t6">0</div><button class="btn-tap" onclick="count('t6')">TAABO</button></div>
+        <div class="tasbih-card"><div class="arabic-sm">سُبْحَانَ اللَّهِ وَبِحَمْدِهِ</div><div class="count-num" id="t7">0</div><button class="btn-tap" onclick="count('t7')">TAABO</button></div>
+        <div class="tasbih-card"><div class="arabic-sm">سُبْحَانَ اللَّهِ الْعَظِيمِ</div><div class="count-num" id="t8">0</div><button class="btn-tap" onclick="count('t8')">TAABO</button></div>
+        <div class="tasbih-card"><div class="arabic-sm">اللَّهُمَّ صَلِّ عَلَى مُحَمَّدٍ</div><div class="count-num" id="t9">0</div><button class="btn-tap" onclick="count('t9')">TAABO</button></div>
+        <div class="tasbih-card"><div class="arabic-sm">يَا حَيُّ يَا قَيُّومُ</div><div class="count-num" id="t10">0</div><button class="btn-tap" onclick="count('t10')">TAABO</button></div>
+        <div class="tasbih-card"><div class="arabic-sm">لَا إِلَهَ إِلَّا أَنْتَ سُبْحَانَكَ</div><div class="count-num" id="t11">0</div><button class="btn-tap" onclick="count('t11')">TAABO</button></div>
+        <div class="tasbih-card"><div class="arabic-sm">حَسْبُنَا اللَّهُ وَنِعْمَ الْوَكِيلُ</div><div class="count-num" id="t12">0</div><button class="btn-tap" onclick="count('t12')">TAABO</button></div>
     </div>
+    <center><button onclick="resetAll()" style="color:red; background:none; border:none; padding:10px;">Reset All Counts</button></center>
 </div>
 
-<div id="hadith-sec" class="page" style="display:none;">
-    <h2 style="text-align:center; color:var(--gold); margin-top: 20px;">XADIITHYADA MAALINTA</h2>
-    <div class="hadith-card">
-        <div class="arabic-text">إِنَّمَا الأَعْمَالُ بِالنِّيَّاتِ</div>
-        <div class="hadith-so">"Camalladu waxay ku xirantahay niyadda, qof walbana wuxuu helayaa wuxuu niyaystay." (Bukhaari)</div>
-    </div>
-    <div class="hadith-card">
-        <div class="arabic-text">خَيْرُكُمْ مَنْ تَعَلَّمَ الْقُرْآنَ وَعَلَّمَهُ</div>
-        <div class="hadith-so">"Ka idiinku khayr badan waa kan barta Qur'aanka kariimka ah, dadkana bara." (Bukhaari)</div>
-    </div>
-    <div class="hadith-card">
-        <div class="arabic-text">مَنْ كَانَ يُؤْمِنُ بِاللَّهِ وَالْيَوْمِ الآخِرِ فَلْيَقُلْ خَيْرًا أَوْ لِيَصْمُتْ</div>
-        <div class="hadith-so">"Qofka rumeysan Alle iyo Maalinta dambe, ha ku hadlo khayr ama ha aamuso." (Muslim)</div>
+<div id="hadith-sec" class="page">
+    <div class="hadith-container">
+        <h3 style="text-align:center; color:var(--gold);">XADIITHYADA AF-SOOMAALI</h3>
+        <div class="hadith-card">
+            <div class="arabic-text">إِنَّمَا الأَعْمَالُ بِالنِّيَّاتِ</div>
+            <div class="hadith-so">"Camalladu waxay ku xirantahay niyadda, qof walbana wuxuu helayaa wuxuu niyaystay." (Bukhaari)</div>
+        </div>
+        <div class="hadith-card">
+            <div class="arabic-text">خَيْرُكُمْ مَنْ تَعَلَّمَ الْقُرْآنَ وَعَلَّمَهُ</div>
+            <div class="hadith-so">"Ka idiinku khayr badan waa kan barta Qur'aanka kariimka ah, dadkana bara." (Bukhaari)</div>
+        </div>
+        <div class="hadith-card">
+            <div class="arabic-text">مَنْ كَانَ يُؤْمِنُ بِاللَّهِ وَالْيَوْمِ الآخِرِ فَلْيَقُلْ خَيْرًا أَوْ لِيَصْمُتْ</div>
+            <div class="hadith-so">"Qofka rumeysan Alle iyo Maalinta dambe, ha ku hadlo khayr ama ha aamuso." (Muslim)</div>
+        </div>
+        <div class="hadith-card">
+            <div class="arabic-text">لاَ يُؤْمِنُ أَحَدُكُمْ حَتَّى يُحِبَّ لأَخِيهِ مَا يُحِبُّ لِنَفْسِهِ</div>
+            <div class="hadith-so">"Midkiinna ma rumeynayo (iimaan dhab ah ma leh) ilaa uu walaalkiis la jecelaado waxa uu la jecelyahay naftiisa." (Bukhaari)</div>
+        </div>
+        <div class="hadith-card">
+            <div class="arabic-text">تَبَسُّمُكَ فِي وَجْهِ أَخِيكَ صَدَقَةٌ</div>
+            <div class="hadith-so">"Inaad u dhoola-caddeyso walaalkaa waa kuu sadaqo." (Tirmidi)</div>
+        </div>
     </div>
 </div>
 
 <nav class="nav-bar">
-    <button class="nav-item active" onclick="showPage('quran-sec', this)"><i class="fas fa-quran"></i>QUR'AAN</button>
-    <button class="nav-item" onclick="showPage('tasbih-sec', this)"><i class="fas fa-beads"></i>TASBIIX</button>
-    <button class="nav-item" onclick="showPage('hadith-sec', this)"><i class="fas fa-mosque"></i>XADIITH</button>
+    <button class="nav-item active-nav" onclick="showPage('quran-sec', this)"><i class="fas fa-quran"></i><br>QUR'AAN</button>
+    <button class="nav-item" onclick="showPage('tasbih-sec', this)"><i class="fas fa-beads"></i><br>TASBIIX</button>
+    <button class="nav-item" onclick="showPage('hadith-sec', this)"><i class="fas fa-mosque"></i><br>XADIITH</button>
 </nav>
 
 <script>
+    function changeLang(lang, btn) {
+        const frame = document.getElementById('quran-frame');
+        document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        if(lang === 'so') frame.src = "https://quran.com?translations=55";
+        else if(lang === 'en') frame.src = "https://quran.com?translations=131";
+        else frame.src = "https://quran.com/ar";
+    }
+
     function count(id) {
         let el = document.getElementById(id);
         el.innerText = parseInt(el.innerText) + 1;
-        if (navigator.vibrate) navigator.vibrate(45);
+        if (navigator.vibrate) navigator.vibrate(40);
+    }
+
+    function resetAll() {
+        if(confirm("Ma hubtaa?")) {
+            document.querySelectorAll('.count-num').forEach(el => el.innerText = '0');
+        }
     }
 
     function showPage(id, btn) {
         document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
         document.getElementById(id).style.display = 'block';
-        document.querySelectorAll('.nav-item').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
+        document.querySelectorAll('.nav-item').forEach(b => b.classList.remove('active-nav'));
+        btn.classList.add('active-nav');
     }
 
-    // AI SOMALI SETUP
     window.onload = function() {
         document.getElementById('quran-frame').src = "https://quran.com?translations=55";
     };
 </script>
-
 </body>
 </html>
