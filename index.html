@@ -3,7 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Islamic Mega App V4 - Siira Dhammaystiran</title>
+    <title>Islamic Super App - Al-Kaamil V6</title>
+
+    <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/2987/2987996.png">
+    <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/2987/2987996.png">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="Siirada">
+    <meta name="theme-color" content="#0f172a">
+
     <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -20,7 +27,7 @@
             color: var(--text);
             font-family: 'Inter', sans-serif;
             margin: 0;
-            padding-bottom: 110px;
+            padding-bottom: 120px;
             line-height: 1.8;
         }
 
@@ -40,62 +47,68 @@
             background: var(--card);
             border-radius: 20px;
             padding: 25px;
-            margin-bottom: 30px;
+            margin-bottom: 35px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
             border-left: 6px solid var(--gold);
-            animation: fadeIn 0.5s ease-in;
+            overflow: hidden;
         }
 
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        /* Sawirada Styles */
+        .img-hero {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            border: 1px solid var(--gold);
+        }
 
         .arabic-head {
             font-family: 'Amiri', serif;
             font-size: 1.8rem;
             color: var(--gold);
             text-align: right;
-            border-bottom: 1px solid #334155;
+            border-bottom: 2px solid #334155;
             padding-bottom: 10px;
             margin-bottom: 20px;
         }
 
-        .somali-text h3 { color: var(--gold); margin-top: 25px; border-bottom: 2px solid #334155; padding-bottom: 5px; }
+        .somali-text h3 { color: var(--gold); margin-top: 30px; border-bottom: 1px solid #334155; padding-bottom: 5px; }
         .somali-text p { text-align: justify; margin-bottom: 15px; font-size: 1.1rem; }
         .highlight { color: var(--gold); font-weight: bold; }
-        .list-item { margin-bottom: 10px; padding-left: 15px; border-left: 2px solid var(--gold); }
+        .quote-box { background: #0f172a; padding: 15px; border-radius: 10px; border: 1px dashed var(--gold); margin: 15px 0; font-style: italic; }
 
         .quran-container { height: 85vh; border-radius: 15px; overflow: hidden; background: white; }
         iframe { width: 100%; height: 100%; border: none; }
 
-        .tasbih-wrapper { text-align: center; padding: 40px 10px; }
+        .tasbih-wrapper { text-align: center; padding: 30px 10px; }
         .zikri-selector {
             background: var(--nav-bg); color: var(--gold);
             padding: 15px; border-radius: 10px; width: 100%;
-            margin-bottom: 25px; font-family: 'Amiri', serif;
-            font-size: 1.4rem; border: 1px solid var(--gold);
+            margin-bottom: 20px; font-family: 'Amiri', serif;
+            font-size: 1.3rem; border: 1px solid var(--gold);
         }
-        .counter-num { font-size: 110px; font-weight: 800; color: var(--gold); margin: 20px 0; text-shadow: 0 0 20px rgba(251,191,36,0.3); }
+        .counter-num { font-size: 100px; font-weight: 800; color: var(--gold); margin: 15px 0; }
         .tap-area {
-            width: 240px; height: 240px; border-radius: 50%;
-            border: 12px solid var(--gold); background: transparent;
-            color: white; font-size: 26px; font-weight: bold; cursor: pointer;
-            transition: 0.3s;
+            width: 220px; height: 220px; border-radius: 50%;
+            border: 10px solid var(--gold); background: transparent;
+            color: white; font-size: 24px; font-weight: bold; cursor: pointer;
         }
-        .tap-area:active { transform: scale(0.9); background: var(--gold); color: black; }
 
         nav {
             position: fixed; bottom: 0; width: 100%;
             background: var(--nav-bg); display: flex;
             overflow-x: auto; padding: 15px 0;
             border-top: 2px solid #334155;
-            box-shadow: 0 -5px 20px rgba(0,0,0,0.5);
+            scrollbar-width: none;
         }
         nav button {
-            flex: 1 0 auto; min-width: 85px;
+            flex: 0 0 auto; min-width: 80px;
             background: none; border: none; color: var(--sub);
             font-weight: bold; font-size: 11px; cursor: pointer;
-            text-transform: uppercase; letter-spacing: 1px;
         }
-        nav button.active { color: var(--gold); }
+        nav button.active { color: var(--gold); border-bottom: 2px solid var(--gold); }
+        .share-btn { color: #25D366 !important; font-weight: 800; }
 
         .hidden { display: none; }
     </style>
@@ -103,7 +116,7 @@
 <body>
 
 <header>
-    <h1 id="page-title" style="margin:0; font-family:'Amiri'; letter-spacing: 1px;">Qur'aanka Kariimka</h1>
+    <h1 id="page-title" style="margin:0; font-family:'Amiri';">Qur'aanka Kariimka</h1>
 </header>
 
 <div class="container">
@@ -116,45 +129,66 @@
 
     <div id="sec-sira" class="hidden">
         <div class="content-box">
-            <div class="arabic-head">١. النسب والنشأة المباركة</div>
+            <img src="https://images.unsplash.com/photo-1591604129939-f1efa4d9f7fa?auto=format&fit=crop&q=80&w=1000" class="img-hero">
+            <div class="arabic-head">١. المولد والنسب والنشأة</div>
             <div class="somali-text">
-                <h3>Nasabka iyo Qoyska Nabiga ﷺ</h3>
-                <p>Waa <b>Maxamed</b> binu Cabdullaahi binu Cabdil-Mudallib binu Haashim binu Cabdi-Manaaf. Haashim wuxuu ahaa ninkii u xilsaarnaa quudinta iyo waraabinta xujayda. Abtirsiga Nabigu wuxuu ku xirmaa <span class="highlight">Nabi Ismaaciil binu Ibraahim (C.S)</span>.</p>
-                <p>Aabihii Cabdullaahi wuxuu geeriyooday isagoo Nabigu ﷺ uurka ku jiro (bilowgii agoonnimada). Hooyadii Aamina bintu Wahab waxay dhimatay isagoo 6 sano jir ah, waxaana lagu aasay meesha la yiraahdo 'Abwaa'.</p>
-                <h3>Carruurnimadii iyo Mucjisooyinkii Hore</h3>
-                <p>Wuxuu ku barbaaray miyiga reer <span class="highlight">Bani Sacad</span> si uu u barto afka carabiga ee safiga ah. Xaliimo Sacdiya waxay aragtay barako badan markii ay Nabiga nuujinaysay. Waxaa halkaas ka dhacay dhacdadii <b>Shaqul-Sadri</b> (laab-qalkii) markii labo malag ay sifeeyeen qalbbiga Nabiga ﷺ.</p>
+                <h3>Nasabka iyo Dhalashada</h3>
+                <p>Waa <b>Maxamed</b> binu Cabdullaahi binu Cabdil-Mudallib binu Haashim binu Cabdi-Manaaf binu Qusayi binu Kilaab... ilaa uu ka gaaro <span class="highlight">Nabi Ibraahim (C.S)</span>.</p>
+                
+                
+
+
+
+[Image of the family tree of Prophet Muhammad]
+
+
+
+                <p>Wuxuu dhashay Maalin Isniin ah, 12-ka Rabiicul-Awal, oo ku beegnayd <b>Sannadkii Maroodiga</b> (571 M). Waxaa dhashay hooyo Aamina bint Wahab, aabihiina wuxuu geeriyooday isagoo uurka ku jira. Markuu dhashay, nuur ka baxay hooyadii ayaa gaaray daaraha Shaam.</p>
+                <h3>Carruurnimadii iyo Agoonimada</h3>
+                <p>Waxaa nuujisay <b>Xaliimo Sacdiya</b>. Isagoo 4 sano jir ah ayuy dhacday mucjisadii <i>Shaqul-Sadri</i>. 6 sano jir markuu ahaa waxaa dhimatay hooyadii, 8 sano jirna awoowgii. Waxaa soo koriyay adeerkiis Abuu Daalib.</p>
+                <h3>Shaqada iyo Guurka</h3>
+                <p>Wuxuu ahaa adhi-raac iyo ganacsade loogu yeero <b>Al-Amiin</b>. Isagoo 25 jir ah ayuu guursaday Sayidatuna Khadiija (R.A).</p>
             </div>
         </div>
 
         <div class="content-box">
-            <div class="arabic-head">٢. الشباب والرسالة</div>
+            <img src="https://images.unsplash.com/photo-1519817650390-64a93db51149?auto=format&fit=crop&q=80&w=1000" class="img-hero">
+            <div class="arabic-head">٢. بعثة النبي ﷺ والدعوة</div>
             <div class="somali-text">
-                <h3>Dhalinyaranimadii iyo Guurka</h3>
-                <p>Nabigu ﷺ wuxuu ahaa mid ka fog xumaantii jaahiliyada. Isagoo 25 jir ah ayuu guursaday <b>Khadiija bintu Khuwaylid</b> (R.A) ka dib markii ay ku aragtay ammaanada uu u leeyahay ganacsigeeda. Khadiija waxay dhashay dhammaan carruurta Nabiga ﷺ marka laga reebo Ibraahim.</p>
-                <h3>Bilowgii Waxyiga</h3>
-                <p>Markuu 40 jirsaday, habeen Ramadaan ah isagoo ku jira <span class="highlight">Godka Xiraa</span>, waxaa u yimid Malag Jibriil. Kelmadii ugu horreysay waxay ahayd <b>"IQRA"</b> (Akhri). Wuxuu ahaa bilowgii 23 sano oo waxyigu soo degayay.</p>
+                <h3>Waxyiga</h3>
+                <p>Isagoo 40 jir ah ayuu Malag Jibriil ugu yimid <b>Godka Xiraa</b>. Dacwadu waxay qarsoodi ahayd 3 sano, ka dibna 10 sano oo fagaare ah oo Makka dhexdeeda ah halkaas oo muslimiinta lagu dhibay.</p>
+                <h3>Israa iyo Micraaj</h3>
+                <p>Alle wuxuu Nabiga ﷺ ku kaxeyay Buraaq isagoo geeyay Qudus, ka dibna samada kor loogu qaaday si loogu soo farad-yeelo shanta Salaadood.</p>
             </div>
         </div>
 
         <div class="content-box">
-            <div class="arabic-head">٣. الهجرة والدولة الإسلامية</div>
+            <img src="https://images.unsplash.com/photo-1542810634-71277d95dcbb?auto=format&fit=crop&q=80&w=1000" class="img-hero">
+            <div class="arabic-head">٣. الهجرة وبناء الدولة</div>
             <div class="somali-text">
-                <h3>Sannadihii Dhibka iyo Hijrada</h3>
-                <p>13 sano oo Makka ah, muslimiintu waxay mareen dhib, cunaqabatayn iyo jirdil. Ka dib, Alle wuxuu u ogolaaday inay u hijroodaan <b>Yathrib</b> (Madiina). Safarkaas wuxuu ahaa mid mucjiso ah oo uu weheliyay Abuu Bakar (R.A).</p>
-                <h3>Dhismihii Madiina</h3>
-                <p>Markuu Madiina tagay, wuxuu dhisay Masjidka Nabiga, wuxuuna qoray "Wathiiqatul Madiina" oo ahayd dastuurkii ugu horreeyay ee dunida ee qeexaya xuquuqda dadka wada degan. Wuxuu walaaleeyay <b>Muhaajiriin</b> (kuwii soo qaxay) iyo <b>Ansaar</b> (dadkii Madiina).</p>
+                <h3>Madiina Al-Munawwara</h3>
+                <p>Kadib 13 sano oo Makka ah, Nabigu ﷺ wuxuu u hijrooday Madiina. Wuxuu dhisay Masjidka Nabiga, wuxuuna walaaleeyay Muhaajiriin iyo Ansaar. Wuxuu qoray heshiiskii Madiina oo ahaa kii ugu horreeyay ee noociisa ah.</p>
+                
+                <h3>Dagaallada Waaweyn</h3>
+                <p><b>Badr (2H):</b> Muslimiinta (313) ayaa ka guuleystay gaalada (1000).</p>
+                <p><b>Uxud (3H):</b> Muslimiinta ayaa la kulmay dhib ka dib markii amarkii Nabiga la khilaafay.</p>
+                <p><b>Furashadii Makka (8H):</b> Nabigu ﷺ wuxuu Makka ku laabtay isagoo guulweyn wada, wuxuuna yiri: <i>"Iska baxa, xor baad tihiine"</i>.</p>
             </div>
         </div>
 
         <div class="content-box">
-            <div class="arabic-head">٤. الجهاد والفتح والوفاة</div>
+            <img src="https://images.unsplash.com/photo-1564769625905-50e93615e769?auto=format&fit=crop&q=80&w=1000" class="img-hero">
+            <div class="arabic-head">٤. الوداع الأخير والوفاة</div>
             <div class="somali-text">
-                <h3>Dagaallada iyo Xaq-u-dirirka</h3>
-                <p>Nabigu ﷺ wuxuu galay 27 duulaan oo uu isagu hogaaminayay. Kuwa ugu waaweyn waa <b>Badr</b> (Guushii ugu horreysay), <b>Uxud</b> (Imtixaankii dhibka), iyo <b>Khandaq</b> (Guushii maskaxda iyo difaaca).</p>
-                <h3>Furashadii Makka (8 Hijriya)</h3>
-                <p>Waa maalinkii uu Nabigu ﷺ Makka dib u qabsaday isagoo dhowraya dhiigga. Wuxuu yiri: "Maanta eed laguma leeyahay, iska baxa xor baad tihiine." Wuxuu burburiyay 360 asnamood oo Kacbada hareeraheeda yaalay.</p>
-                <h3>Geeridii Nabiga ﷺ</h3>
-                <p>Sannadkii 11-aad ee Hijriyada, bishii Rabiicul-Awal, ayuu Nabigu ﷺ geeriyooday isagoo dhex jiifa guriga hooyadeen Caasha. Kelmadiisii ugu dambaysay waxay ahayd: <b>"Ar-Rafiiqal-Aclaa"</b> (Saaxiibka sare ee xagga Alle).</p>
+                <h3>Xajkii Sagootiska</h3>
+                <p>Sannadkii 10-aad ee Hijriyada, Nabigu ﷺ wuxuu gutay xajkiisii u dambeeyay. Wuxuu dadka kula hadlay Buurta Carafo isagoo dardaaray:</p>
+                <div class="quote-box">
+                    "Dhiiggiinnu iyo maalkiinnu waa idinka xaaraan... Waxaan idinkaga tagay labo shay oo haddaad qabsataan aydan lumin: Kitaabka Alle iyo Sunnadayda."
+                </div>
+                <h3>Dardaarankii Geerida</h3>
+                <p>Maalmihiisii u dambeeyay, Nabigu ﷺ wuxuu ku celcelinayay: <b>"Salaadda, Salaadda, iyo wixii gacantiinnu hantiday (shaqaalaha/adoomada)."</b></p>
+                <h3>Geerida</h3>
+                <p>Sannadkii 11-aad, 12-ka Rabiicul-Awal, ayuu geeriyooday isagoo 63 sano jir ah. Waxaa lagu aasay gurigii Caasha (R.A) ee Madiina.</p>
             </div>
         </div>
     </div>
@@ -168,74 +202,103 @@
                 <option value="Astaqfirullaah">أستغفر الله</option>
                 <option value="Laa ilaaha illallaah">لا إله إلا الله</option>
                 <option value="Salli calaa Nabii">اللهم صلِّ على محمد</option>
+                <option value="Subxaanallaahi wa bixamdihi">سبحان الله وبحمده</option>
             </select>
             <div class="counter-num" id="t-num">0</div>
             <button class="tap-area" onclick="count()">TAABO</button>
-            <br><br>
-            <button onclick="resetT()" style="background:none; border:2px solid var(--sub); color:var(--sub); padding:10px 20px; border-radius:10px; cursor:pointer;">Ka bilow Eber</button>
         </div>
     </div>
 
     <div id="sec-xadiis" class="hidden">
         <div class="content-box">
-            <div class="arabic-head">إنما الأعمال بالنيات</div>
-            <p><b>Xadiiska 1:</b> "Camallada waxay ku xiran yihiin niyadda, qof kastaana wuxuu helayaa wixii uu niyaystay." (Bukhaari).</p>
+            <div class="arabic-head">١. إنما الأعمال بالنيات</div>
+            <p><b>Soomaali:</b> "Camallada waxay ku xiran yihiin niyadda, qof kastaana wuxuu helayaa wixii uu niyaystay." (Bukhaari).</p>
         </div>
         <div class="content-box">
-            <div class="arabic-head">المسلم من سلم المسلمون من لسانه ويده</div>
-            <p><b>Xadiiska 2:</b> "Muslimka rasmiga ah waa kan ay muslimiinta kale ka nabad galaan carrabkiisa iyo gacantiisa."</p>
+            <div class="arabic-head">٢. خيركم من تعلم القرآن وعلمه</div>
+            <p><b>Soomaali:</b> "Ka idiinku khayrka badan waa kan barta Qur'aanka dadkana bara." (Bukhaari).</p>
         </div>
         <div class="content-box">
-            <div class="arabic-head">كلمتان خفيفتان على اللسان ثقيلتان في الميزان</div>
-            <p><b>Xadiiska 3:</b> "Labo kelmadood oo carrabka ku fudud, miizaankana ku culus, Allena jecel yahay: <i>Subxaanallaahi wa bixamdihi, Subxaanallaahil-Cadiim</i>."</p>
+            <div class="arabic-head">٣. الدين النصيحة</div>
+            <p><b>Soomaali:</b> "Diintu waa naseexo (u wanaag falka)." (Muslim).</p>
         </div>
         <div class="content-box">
-            <div class="arabic-head">تبسمك في وجه أخيك صدقة</div>
-            <p><b>Xadiiska 4:</b> "Inaad walaalkaa u dhoola-caddeyso waa kuu sadaqo."</p>
+            <div class="arabic-head">٤. المسلم من سلم المسلمون من لسانه ويده</div>
+            <p><b>Soomaali:</b> "Muslimka dhabta ah waa kan ay muslimiinta kale ka nabad galaan carrabkiisa iyo gacantiisa."</p>
+        </div>
+        <div class="content-box">
+            <div class="arabic-head">٥. كلمتان خفيفتان على اللسان</div>
+            <p><b>Soomaali:</b> "Labo kelmadood oo carrabka ku fudud, miizaankana ku culus: Subxaanallaahi wa bixamdihi, Subxaanallaahil-Cadiim."</p>
         </div>
     </div>
 
     <div id="sec-duco" class="hidden">
         <div class="content-box">
-            <div class="arabic-head">دعاء الاستخارة</div>
-            <p><b>Ducada Istixaarada:</b> "اللهم إني أستخيرك بعلمك وأستقدرك بقدرتك..." (Waxaa la aqriyaa markaad go'aan gaaraysid).</p>
+            <div class="arabic-head">دعاء الاستيقاظ</div>
+            <p><b>Kicitaanka hurdada:</b> Alxamdu lillaahilladii axyaanaa bacda maa amaatanaa wa ilayhin-nushuur.</p>
         </div>
         <div class="content-box">
-            <div class="arabic-head">دعاء الخروج من البيت</div>
-            <p><b>Ducada guriga looga baxayo:</b> "Bismillaahi tawakkaltu calallaahi, walaa xawla walaa quwwata illaa billaah."</p>
+            <div class="arabic-head">دعاء سيد الاستغفار</div>
+            <p><b>Sayidul Istiqfaar:</b> Allaahumma anta rabbii laa ilaaha illallaah, khalaqtanii wa ana cabduka...</p>
         </div>
         <div class="content-box">
-            <div class="arabic-head">دعاء الأكل</div>
-            <p><b>Ducada cuntada:</b> "Allaahumma baarik lanaa fiimaa razaqtanaa waqinaa cadaaban-naar. Bismillaah."</p>
+            <div class="arabic-head">دعاء الوالدين</div>
+            <p><b>Waalidiinta:</b> Rabbir-xamhumaa kamaa rabayaanii saqiiraa.</p>
         </div>
         <div class="content-box">
-            <div class="arabic-head">دعاء الركوب</div>
-            <p><b>Ducada gaadiidka la fuulo:</b> "Subxaanalladii sakhara lanaa haadaa wamaa kunnaa lahu muqriniin."</p>
+            <div class="arabic-head">دعاء دخول المسجد</div>
+            <p><b>Gelista Masjidka:</b> Allaahumma-ftax lii abwaaba raxmatika.</p>
+        </div>
+        <div class="content-box">
+            <div class="arabic-head">دعاء النوم</div>
+            <p><b>Hurdada:</b> Bismika Allaahumma amuutu wa axyaa.</p>
+        </div>
+        <div class="content-box">
+            <div class="arabic-head">دعاء السوق</div>
+            <p><b>Suuqa:</b> Laa ilaaha illallaahu waxdahu laa shariika lahu...</p>
         </div>
     </div>
 
 </div>
 
 <nav>
-    <button onclick="tab('sec-quran', 'Qur\'aanka Kariimka', this)" class="active">Quraanka</button>
-    <button onclick="tab('sec-sira', 'Siirada Nabiga ﷺ', this)">Siirada</button>
-    <button onclick="tab('sec-tasbih', 'Tasbiixda', this)">Tasbiix</button>
-    <button onclick="tab('sec-xadiis', 'Xadiisyo Muhiim ah', this)">Xadiis</button>
-    <button onclick="tab('sec-duco', 'Ducooyin Badan', this)">Duco</button>
+    <button onclick="tab('sec-quran', 'Quraanka', this)" class="active">Quraanka</button>
+    <button onclick="tab('sec-sira', 'Siirada', this)">Siirada</button>
+    <button onclick="tab('sec-tasbih', 'Tasbiix', this)">Tasbiix</button>
+    <button onclick="tab('sec-xadiis', 'Xadiith', this)">Xadiith</button>
+    <button onclick="tab('sec-duco', 'Ducooyin', this)">Ducooyin</button>
+    <button onclick="shareApp()" class="share-btn">LA WADAAG</button>
 </nav>
 
 <script>
     function tab(id, title, btn) {
-        ['sec-quran', 'sec-sira', 'sec-tasbih', 'sec-xadiis', 'sec-duco'].forEach(s => document.getElementById(s).classList.add('hidden'));
+        ['sec-quran', 'sec-sira', 'sec-tasbih', 'sec-xadiis', 'sec-duco'].forEach(s => {
+            document.getElementById(s).classList.add('hidden');
+        });
         document.getElementById(id).classList.remove('hidden');
         document.getElementById('page-title').innerText = title;
         document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
+        if(btn) btn.classList.add('active');
         window.scrollTo(0,0);
     }
+
     let c = 0;
-    function count() { c++; document.getElementById('t-num').innerText = c; if(navigator.vibrate) navigator.vibrate(40); }
-    function resetT() { c = 0; document.getElementById('t-num').innerText = c; }
+    function count() {
+        c++;
+        document.getElementById('t-num').innerText = c;
+        if(navigator.vibrate) navigator.vibrate(40);
+    }
+
+    function resetT() {
+        c = 0;
+        document.getElementById('t-num').innerText = c;
+    }
+
+    function shareApp() {
+        const text = "Baro Siirada Nabiga ﷺ, dhageyso Qur'aanka, kuna tasbiixso App-kan: " + window.location.href;
+        const url = "https://wa.me/?text=" + encodeURIComponent(text);
+        window.open(url, '_blank');
+    }
 </script>
 
 </body>
