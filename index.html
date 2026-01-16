@@ -3,48 +3,99 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>World Mart General Trading</title>
+    <title>World Mart General Trading | Cosmetics & Medical</title>
     <style>
-        body { font-family: 'Arial', sans-serif; margin: 0; padding: 0; background-color: #f4f4f4; text-align: center; }
-        header { background-color: #003366; color: white; padding: 60px 20px; }
-        .container { padding: 50px 20px; }
-        h1 { margin: 0; font-size: 2.5em; }
-        p { font-size: 1.2em; color: #555; }
-        .services { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-top: 30px; }
-        .card { background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); width: 250px; }
-        .cta-button { background-color: #ffcc00; color: #333; padding: 15px 30px; text-decoration: none; font-weight: bold; border-radius: 5px; display: inline-block; margin-top: 20px; }
-        footer { background: #333; color: white; padding: 20px; position: fixed; bottom: 0; width: 100%; }
+        :root {
+            --primary-color: #2c3e50;
+            --accent-color: #e74c3c;
+            --light-bg: #f9f9f9;
+        }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; background-color: var(--light-bg); color: #333; line-height: 1.6; }
+        
+        /* Header */
+        header { background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1512432334860-2e796cc7161b?auto=format&fit=crop&w=1350&q=80'); background-size: cover; background-position: center; color: white; padding: 100px 20px; text-align: center; }
+        header h1 { font-size: 3rem; margin: 0; letter-spacing: 2px; }
+        header p { font-size: 1.2rem; opacity: 0.9; }
+
+        /* Section Titles */
+        .section-title { text-align: center; margin: 50px 0 30px; }
+        .section-title h2 { border-bottom: 3px solid var(--accent-color); display: inline-block; padding-bottom: 10px; }
+
+        /* Products Grid */
+        .container { max-width: 1200px; margin: auto; padding: 20px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        
+        .card { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 20px rgba(0,0,0,0.05); transition: 0.3s; }
+        .card:hover { transform: translateY(-10px); }
+        .card img { width: 100%; height: 250px; object-fit: cover; }
+        .card-body { padding: 20px; text-align: center; }
+        .card-body h3 { margin: 10px 0; color: var(--primary-color); }
+        .card-body p { color: #777; font-size: 0.9rem; }
+
+        /* Contact Button */
+        .cta { text-align: center; margin: 50px 0; }
+        .btn { background: #25d366; color: white; padding: 15px 40px; text-decoration: none; border-radius: 50px; font-weight: bold; font-size: 1.1rem; box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3); }
+
+        footer { background: var(--primary-color); color: white; text-align: center; padding: 30px; margin-top: 50px; }
     </style>
 </head>
 <body>
 
 <header>
     <h1>World Mart General Trading</h1>
-    <p>Saaxiibkaaga koowaad ee Ganacsiga Guud iyo Adeegga Tayada Leh</p>
+    <p>Ku soo dhowaada xarunta Cosmetics-ka tayada leh iyo qalabka caafimaadka</p>
 </header>
 
 <div class="container">
-    <h2>Adeegyada aan bixino</h2>
-    <div class="services">
+    
+    <div class="section-title">
+        <h2>Qaybta Cosmetics (Quruxda)</h2>
+    </div>
+    <div class="grid">
         <div class="card">
-            <h3>Dhoofinta & Soo Dejinta</h3>
-            <p>Waxaan kuu fududeyneynaa badeecad kasta oo aad dunida uga baahato.</p>
+            <img src="https://images.unsplash.com/photo-1596462502278-27bfac4033c8?auto=format&fit=crop&w=800&q=80" alt="Cosmetics">
+            <div class="card-body">
+                <h3>Kiriimada Wejiga</h3>
+                <p>Kiriimo dabiici ah oo loogu talagalay ilaalinta maqaarka.</p>
+            </div>
         </div>
         <div class="card">
-            <h3>Qalabka dhismaha</h3>
-            <p>Qalab tayo leh iyo qalabka casriga ah ee dhismaha.</p>
-        </div>
-        <div class="card">
-            <h3>Agabka Xafiiska</h3>
-            <p>Dhaman agabka xafiiska iyo qalabka elektaroonigga.</p>
+            <img src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=800&q=80" alt="Makeup">
+            <div class="card-body">
+                <h3>Makeup Casri ah</h3>
+                <p>Agabka makeup-ka ee ugu dambeeyay dunida.</p>
+            </div>
         </div>
     </div>
 
-    <a href="https://wa.me/252617091691" class="cta-button">Nagala soo xiriir WhatsApp</a>
+    <div class="section-title">
+        <h2>Qaybta Daawooyinka & Caafimaadka</h2>
+    </div>
+    <div class="grid">
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=800&q=80" alt="Medicine">
+            <div class="card-body">
+                <h3>Daawooyinka Guud</h3>
+                <p>Daawooyin tayo leh oo laga soo dhoofiyo shirkadaha ugu waaweyn.</p>
+            </div>
+        </div>
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1583324113626-70df0f44aaff?auto=format&fit=crop&w=800&q=80" alt="Medical Tools">
+            <div class="card-body">
+                <h3>Qalabka Caafimaadka</h3>
+                <p>Qalabka lagu baaro caafimaadka iyo agabka isbitaalada.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="cta">
+        <a href="https://wa.me/252617091691" class="btn">Nagala soo xiriir WhatsApp</a>
+    </div>
+
 </div>
 
 <footer>
-    <p>&copy; 2024 World Mart General Trading. All Rights Reserved.</p>
+    <p>&copy; 2026 World Mart General Trading | All Rights Reserved.</p>
 </footer>
 
 </body>
